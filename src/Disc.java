@@ -1,7 +1,9 @@
 public class Disc {
     private Color color;
+    private Position position;
 
-    public Disc() {
+    public Disc(Position position) {
+        this.position = position;
         this.color = Color.EMPTY;
     }
 
