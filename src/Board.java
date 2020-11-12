@@ -7,6 +7,10 @@ public class Board {
         this.board = new Disc[8][8];
     }
 
+    /*
+    Initiates a new board with the discs at starting positions
+    of the game.
+     */
     public void initBoard() {
         for (int x = 0; x < ROWS; x++) {
             for (int y = 0; y < COLUMNS; y++) {
