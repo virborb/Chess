@@ -14,4 +14,8 @@ public class Disc {
     public void setColor(Color color) {
         this.color = color;
     }
+
+    public Position getPosition() {
+        return position;
+    }
 }
