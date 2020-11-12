@@ -1,8 +1,8 @@
 public class Disc {
     private Color color;
 
-    public Disc(Color color) {
-        this.color = color;
+    public Disc() {
+        this.color = Color.EMPTY;
     }
 
     public Color getColor() {
