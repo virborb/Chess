@@ -15,7 +15,7 @@ class RulesTest {
 
     @Test
     void testNotEmpty() {
-        Disc disc = board.GetDisc(5, 5);
+        Disc disc = board.GetDisc(3, 3);
         assertFalse(rules.isLegalMove(board, disc, Color.WHITE));
     }
 
