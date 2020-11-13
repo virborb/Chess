@@ -1,10 +1,7 @@
 import org.jetbrains.annotations.NotNull;
-
 import java.util.Arrays;
 
 public class Board {
-    private final static int ROWS = 8;
-    private final static int COLUMNS = 8;
     private Disc[][] board;
 
     public Board() {
@@ -16,8 +13,8 @@ public class Board {
     of the game.
      */
     public void initBoard() {
-        for (int row = 0; row < ROWS; row++) {
-            for (int col = 0; col < COLUMNS; col++) {
+        for (int row = 0; row < Othello.ROWS; row++) {
+            for (int col = 0; col < Othello.COLUMNS; col++) {
                 Position position = new Position(row,col);
                 board[row][col] = new Disc(position);
                 if ((row == 3 && col == 3) || (row == 4 && col == 4)) {
@@ -43,8 +40,8 @@ public class Board {
     @Override
     public String toString() {
         String string = "";
-        for (int row = 0; row < ROWS; row++) {
-            for (int col = 0; col < COLUMNS; col++) {
+        for (int row = 0; row < Othello.ROWS; row++) {
+            for (int col = 0; col < Othello.COLUMNS; col++) {
                 String tmp = "b";
                 switch (board[row][col].getColor()) {
                     case BLACK:
