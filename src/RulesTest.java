@@ -20,9 +20,15 @@ class RulesTest {
     }
 
     @Test
-    void isLegalMove() {
-        Disc disc = board.GetDisc(3, 4);
+    void isLegalMoveNorth() {
+        Disc disc = board.GetDisc(5, 4);
         assertTrue(rules.isLegalMove(board, disc, Color.BLACK));
+    }
+
+    @Test
+    void isLegalMoveNorthEast() {
+        Disc disc = board.GetDisc(5, 2);
+        assertTrue(rules.isLegalMove(board, disc, Color.WHITE));
     }
 
     @Test

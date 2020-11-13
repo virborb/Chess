@@ -19,22 +19,68 @@ public class Rules {
     }
 
     private boolean checkNorth(Board board, int row, int col, Color player) {
-        int delta = row-1;
-        while(delta >= 0) {
-            if(checkDirection(board, row, col, delta, col, player)) {
-                delta--;
-            } else if(player == board.GetDisc(row, col).getColor()) {
+        int dRow = -1;
+        int dCol = 0;
+        return checkDirection(board, row, col, dRow, dCol, player);
+    }
+
+    private boolean checkNorthEast(Board board, int row, int col, Color player) {
+        int dRow = -1;
+        int dCol = 1;
+        return checkDirection(board, row, col, dRow, dCol, player);
+    }
+
+    private boolean checkEast(Board board, int row, int col, Color player) {
+        int dRow = 0;
+        int dCol = 1;
+        return checkDirection(board, row, col, dRow, dCol, player);
+    }
+
+    private boolean checkSouthEast(Board board, int row, int col, Color player) {
+        int dRow = 1;
+        int dCol = 1;
+        return checkDirection(board, row, col, dRow, dCol, player);
+    }
+
+    private boolean checkSouth(Board board, int row, int col, Color player) {
+        int dRow = 1;
+        int dCol = 0;
+        return checkDirection(board, row, col, dRow, dCol, player);
+    }
+
+    private boolean checkSouthWest(Board board, int row, int col, Color player) {
+        int dRow = 1;
+        int dCol = -1;
+        return checkDirection(board, row, col, dRow, dCol, player);
+    }
+
+    private boolean checkWest(Board board, int row, int col, Color player) {
+        int dRow = 0;
+        int dCol = -1;
+        return checkDirection(board, row, col, dRow, dCol, player);
+    }
+
+    private boolean checkNorthWest(Board board, int row, int col, Color player) {
+        int dRow = -1;
+        int dCol = -1;
+        return checkDirection(board, row, col, dRow, dCol, player);
+    }
+
+    private boolean checkDirection(Board board, int row, int col, int dRow, int dCol, Color player) {
+        int sumRow = row + dRow;
+        int sumCol = col + dCol;
+        while(sumRow >= 0 && sumRow < Othello.ROWS && sumCol >= 0 && sumCol < Othello.COLUMNS) {
+            Disc deltaDisc = board.GetDisc(sumRow, sumCol);
+            Color deltaColor = deltaDisc.getColor();
+            if((player != deltaColor && deltaColor != Color.EMPTY)) {
+                sumRow = sumRow + dRow;
+                sumCol = sumCol + dCol;
+            } else if(player == board.GetDisc(sumRow, sumCol).getColor()) {
                 return true;
             } else {
                 return false;
             }
         }
         return false;
-    }
-
-    private boolean checkDirection(Board board, int row, int col, int dRow, int dCol, Color player) {
-        Disc deltaDisc = board.GetDisc(row + dRow, col + dCol);
-        Color deltaColor = deltaDisc.getColor();
-        return (player != deltaColor && deltaColor != Color.EMPTY);
     }
 }
