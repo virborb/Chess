@@ -1,6 +1,6 @@
 public class Disc {
     private Color color;
-    private Position position;
+    private final Position position;
 
     public Disc(Position position) {
         this.position = position;

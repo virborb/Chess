@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Rules {
-    private Position[] directions;
+    private final Position[] directions;
 
     public Rules() {
         this.directions = new Position[8];
@@ -28,20 +28,19 @@ public class Rules {
         return false;
     }
 
-    public Board flipDiscs(Board board, Disc disc, Color player) {
+    public void flipDiscs(Board board, Disc disc, Color player) {
         Position start = disc.getPosition();
         disc.setColor(player);
         for (Position dir : directions) {
             flipDiscDirection(board, start, dir, player);
         }
-        return board;
     }
 
-    private boolean flipDiscDirection(Board board, Position start, Position direction, Color player) {
+    private void flipDiscDirection(Board board, Position start, Position direction, Color player) {
         int sumRow = start.getRow() + direction.getRow();
         int sumCol = start.getCol() + direction.getCol();
         boolean opponentDisc = false;
-        ArrayList<Disc> discs = new ArrayList<Disc>();
+        ArrayList<Disc> discs = new ArrayList<>();
         while(sumRow >= 0 && sumRow < Othello.ROWS && sumCol >= 0 && sumCol < Othello.COLUMNS) {
             Disc deltaDisc = board.GetDisc(sumRow, sumCol);
             Color deltaColor = deltaDisc.getColor();
@@ -51,13 +50,12 @@ public class Rules {
                 sumRow = sumRow + direction.getRow();
                 sumCol = sumCol + direction.getCol();
             } else if(player == deltaColor && opponentDisc) {
-                discs.forEach(disc -> disc.flipDisc());
-                return true;
+                discs.forEach(Disc::flipDisc);
+                return;
             } else {
-                return false;
+                return;
             }
         }
-        return false;
     }
 
     private boolean checkDirection(Board board, Position start, Position direction, Color player) {
@@ -71,11 +69,7 @@ public class Rules {
                 opponentDisc = true;
                 sumRow = sumRow + direction.getRow();
                 sumCol = sumCol + direction.getCol();
-            } else if(player == deltaColor && opponentDisc) {
-                return true;
-            } else {
-                return false;
-            }
+            } else return player == deltaColor && opponentDisc;
         }
         return false;
     }

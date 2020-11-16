@@ -57,7 +57,7 @@ class RulesTest {
                 "EEEEBEEE\n" +
                 "EEEEEEEE\n" +
                 "EEEEEEEE\n";
-        assertTrue(expectedBoard.equals(board.toString()));
+        assertEquals(board.toString(), expectedBoard);
     }
 
     @Test
@@ -76,7 +76,7 @@ class RulesTest {
                 "EEEEBEEE\n" +
                 "EEEEEEEE\n" +
                 "EEEEEEEE\n";
-        assertTrue(expectedBoard.equals(board.toString()));
+        assertEquals(board.toString(), expectedBoard);
     }
 
 }

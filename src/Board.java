@@ -1,8 +1,5 @@
-import org.jetbrains.annotations.NotNull;
-import java.util.Arrays;
-
 public class Board {
-    private Disc[][] board;
+    private final Disc[][] board;
 
     public Board() {
         this.board = new Disc[8][8];
@@ -33,13 +30,9 @@ public class Board {
         return board[row][col];
     }
 
-    public Disc[][] getBoard() {
-        return board;
-    }
-
     @Override
     public String toString() {
-        String string = "";
+        StringBuilder string = new StringBuilder();
         for (int row = 0; row < Othello.ROWS; row++) {
             for (int col = 0; col < Othello.COLUMNS; col++) {
                 String tmp = "b";
@@ -54,10 +47,10 @@ public class Board {
                         tmp = "E";
                         break;
                 }
-                string = new StringBuilder().append(string).append(tmp).toString();
+                string.append(tmp);
             }
-            string = new StringBuilder().append(string).append("\n").toString();
+            string.append("\n");
         }
-        return string;
+        return string.toString();
     }
 }
