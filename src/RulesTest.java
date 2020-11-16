@@ -27,8 +27,16 @@ class RulesTest {
 
     @Test
     void isLegalMoveNorthEast() {
-        Disc disc = board.GetDisc(5, 2);
-        assertTrue(rules.isLegalMove(board, disc, Color.WHITE));
+        Disc disc = board.GetDisc(4, 2);
+        board.GetDisc(2, 4).setColor(Color.BLACK);
+        System.out.println(board.toString());
+        assertTrue(rules.isLegalMove(board, disc, Color.BLACK));
+    }
+
+    @Test
+    void isNonLegalMoveNorthEast() {
+        Disc disc = board.GetDisc(4, 2);
+        assertFalse(rules.isLegalMove(board, disc, Color.BLACK));
     }
 
     @Test
