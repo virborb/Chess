@@ -7,6 +7,14 @@ public class Disc {
         this.color = Color.EMPTY;
     }
 
+    public void flipDisc() {
+        if (color == Color.BLACK) {
+            color = Color.WHITE;
+        } else if (color == Color.WHITE) {
+            color = Color.BLACK;
+        }
+    }
+
     public Color getColor() {
         return color;
     }
