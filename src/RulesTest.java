@@ -29,7 +29,6 @@ class RulesTest {
     void isLegalMoveNorthEast() {
         Disc disc = board.GetDisc(4, 2);
         board.GetDisc(2, 4).setColor(Color.BLACK);
-        System.out.println(board.toString());
         assertTrue(rules.isLegalMove(board, disc, Color.BLACK));
     }
 
@@ -43,6 +42,41 @@ class RulesTest {
     void isNotLegalMove() {
         Disc disc = board.GetDisc(1, 1);
         assertFalse(rules.isLegalMove(board, disc, Color.WHITE));
+    }
+
+    @Test
+    void testFlipDiscs() {
+        Disc disc = board.GetDisc(5, 4);
+        rules.flipDiscs(board, disc, Color.BLACK);
+        String expectedBoard =
+                "EEEEEEEE\n" +
+                "EEEEEEEE\n" +
+                "EEEEEEEE\n" +
+                "EEEWBEEE\n" +
+                "EEEBBEEE\n" +
+                "EEEEBEEE\n" +
+                "EEEEEEEE\n" +
+                "EEEEEEEE\n";
+        assertTrue(expectedBoard.equals(board.toString()));
+    }
+
+    @Test
+    void testFlipDiscs2() {
+        Disc disc = board.GetDisc(5, 4);
+        rules.flipDiscs(board, disc, Color.BLACK);
+        disc = board.GetDisc(3, 5);
+        rules.flipDiscs(board, disc, Color.WHITE);
+        System.out.println(board.toString());
+        String expectedBoard =
+                "EEEEEEEE\n" +
+                "EEEEEEEE\n" +
+                "EEEEEEEE\n" +
+                "EEEWWWEE\n" +
+                "EEEBBEEE\n" +
+                "EEEEBEEE\n" +
+                "EEEEEEEE\n" +
+                "EEEEEEEE\n";
+        assertTrue(expectedBoard.equals(board.toString()));
     }
 
 }
