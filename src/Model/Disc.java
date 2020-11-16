@@ -1,3 +1,5 @@
+package Model;
+
 public class Disc {
     private Color color;
     private final Position position;
@@ -7,6 +9,9 @@ public class Disc {
         this.color = Color.EMPTY;
     }
 
+    /**
+     * Flips a disc
+     */
     public void flipDisc() {
         if (color == Color.BLACK) {
             color = Color.WHITE;

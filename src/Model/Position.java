@@ -1,3 +1,5 @@
+package Model;
+
 /*
 The position on the board.
  */

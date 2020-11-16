@@ -1,3 +1,5 @@
+package Model;
+
 public class Othello {
     public final static int ROWS = 8;
     public final static int COLUMNS = 8;

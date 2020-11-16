@@ -1,3 +1,8 @@
+package Model;
+
+/**
+ * Holds all Model.Disc that are on the board.
+ */
 public class Board {
     private final Disc[][] board;
 
@@ -5,9 +10,9 @@ public class Board {
         this.board = new Disc[8][8];
     }
 
-    /*
-    Initiates a new board with the discs at starting positions
-    of the game.
+    /**
+     * Initiates a new board with the discs at starting positions
+     * of the game.
      */
     public void initBoard() {
         for (int row = 0; row < Othello.ROWS; row++) {
@@ -23,8 +28,11 @@ public class Board {
         }
     }
 
-    /*
-    Gets a disc from specified position.
+    /**
+     * Gets a disc from specified position.
+     * @param row The row where the disc is.
+     * @param col The column where the disc is.
+     * @return The specified disc.
      */
     public Disc GetDisc(int row, int col) {
         return board[row][col];

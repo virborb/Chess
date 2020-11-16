@@ -1,1 +1,1 @@
-Othello
+Model.Othello

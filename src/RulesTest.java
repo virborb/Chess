@@ -1,3 +1,7 @@
+import Model.Board;
+import Model.Color;
+import Model.Disc;
+import Model.Rules;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
