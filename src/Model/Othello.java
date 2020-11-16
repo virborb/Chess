@@ -1,10 +1,21 @@
 package Model;
 
+import javax.swing.*;
+
 public class Othello {
     public final static int ROWS = 8;
     public final static int COLUMNS = 8;
 
     public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    createAndShowGUI();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         Board board = new Board();
         Rules rules = new Rules();
         board.initBoard();
