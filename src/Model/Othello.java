@@ -1,5 +1,8 @@
 package Model;
 
+import View.GameView;
+import View.StartView;
+
 import javax.swing.*;
 
 public class Othello {
@@ -21,5 +24,9 @@ public class Othello {
         board.initBoard();
         System.out.println(board.toString());
         System.out.println(rules.isLegalMove(board, board.GetDisc(5, 3), Color.WHITE));
+    }
+
+    public static void createAndShowGUI() throws Exception {
+        new GameView();
     }
 }
