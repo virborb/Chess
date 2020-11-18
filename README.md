@@ -1,1 +1,1 @@
-Model.Othello
+controller.Othello

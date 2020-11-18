@@ -1,4 +1,6 @@
-package Model;
+package model;
+
+import controller.Othello;
 
 import java.util.ArrayList;
 

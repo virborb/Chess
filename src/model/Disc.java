@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 public class Disc {
     private Color color;

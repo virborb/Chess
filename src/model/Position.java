@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 /*
 The position on the board.

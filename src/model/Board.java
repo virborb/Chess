@@ -1,4 +1,6 @@
-package Model;
+package model;
+
+import controller.Othello;
 
 /**
  * Holds all Model.Disc that are on the board.
