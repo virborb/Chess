@@ -29,4 +29,8 @@ public class GameScreen extends JPanel {
     public JButton[][] getTiles() {
         return tiles;
     }
+
+    public void changeTileColor(int row, int col, Color c) {
+        tiles[row][col].setBackground(c);
+    }
 }

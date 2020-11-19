@@ -40,6 +40,14 @@ public class Board {
         return board[row][col];
     }
 
+    /**
+     *
+     * @return The board.
+     */
+    public Disc[][] getBoard() {
+        return board;
+    }
+
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder();

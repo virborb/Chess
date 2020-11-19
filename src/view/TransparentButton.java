@@ -1,6 +1,7 @@
 package view;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * A transparent button.
@@ -15,5 +16,6 @@ public class TransparentButton extends JButton {
         this.setBorderPainted(false);
         this.setBounds(x, y, width, height);
         this.setOpaque(true);
+        this.setBackground(Color.GREEN);
     }
 }

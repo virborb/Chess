@@ -19,6 +19,19 @@ public class Rules {
         directions[7] = new Position(1,-1);
     }
 
+    public ArrayList<Disc> getValidMoves(Board board, Color player) {
+        ArrayList<Disc> discs = new ArrayList<>();
+        for (int i = 0; i < OthelloController.ROWS; i++) {
+            for (int j = 0; j < OthelloController.COLUMNS; j++) {
+                Disc disc = board.GetDisc(i, j);
+                if(isLegalMove(board, disc, player)) {
+                    discs.add(disc);
+                }
+            }
+        }
+        return discs;
+    }
+
     public boolean isLegalMove(Board board, Disc disc, Color player) {
         Position start = disc.getPosition();
         if(!disc.getColor().equals(Color.EMPTY)) {
