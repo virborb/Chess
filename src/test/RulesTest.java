@@ -1,3 +1,5 @@
+package test;
+
 import model.Board;
 import model.Color;
 import model.Disc;
@@ -21,6 +23,29 @@ class RulesTest {
     void testNotEmpty() {
         Disc disc = board.GetDisc(3, 3);
         assertFalse(rules.isLegalMove(board, disc, Color.WHITE));
+    }
+
+    @Test
+    void testHasLegalMoves() {
+        assertTrue(rules.hasLegalMoves(board, Color.WHITE));
+    }
+
+    @Test
+    void testHasNoLegaMove() {
+        Disc disc = board.GetDisc(5, 4);
+        rules.flipDiscs(board, disc, Color.BLACK);
+        disc = board.GetDisc(2, 3);
+        rules.flipDiscs(board, disc, Color.BLACK);
+        assertFalse(rules.hasLegalMoves(board, Color.BLACK));
+    }
+
+    @Test
+    void testIsGameOver() {
+        Disc disc = board.GetDisc(5, 4);
+        rules.flipDiscs(board, disc, Color.BLACK);
+        disc = board.GetDisc(2, 3);
+        rules.flipDiscs(board, disc, Color.BLACK);
+        assertTrue(rules.isGameOver(board));
     }
 
     @Test
@@ -70,7 +95,6 @@ class RulesTest {
         rules.flipDiscs(board, disc, Color.BLACK);
         disc = board.GetDisc(3, 5);
         rules.flipDiscs(board, disc, Color.WHITE);
-        System.out.println(board.toString());
         String expectedBoard =
                 "EEEEEEEE\n" +
                 "EEEEEEEE\n" +

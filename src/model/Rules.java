@@ -32,6 +32,13 @@ public class Rules {
         return discs;
     }
 
+    public boolean hasLegalMoves(Board b, Color player) {
+        return !getValidMoves(b, player).isEmpty();
+    }
+    public boolean isGameOver(Board b) {
+        return !hasLegalMoves(b, Color.WHITE) && !hasLegalMoves(b, Color.BLACK);
+    }
+
     public boolean isLegalMove(Board board, Disc disc, Color player) {
         Position start = disc.getPosition();
         if(!disc.getColor().equals(Color.EMPTY)) {
