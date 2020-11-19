@@ -35,4 +35,11 @@ public class OthelloView {
         frame.setVisible(true);
     }
 
+    public void showMessage(String message) {
+        JOptionPane.showMessageDialog(frame, message);
+    }
+
+    public Screens getScreens() {
+        return screens;
+    }
 }

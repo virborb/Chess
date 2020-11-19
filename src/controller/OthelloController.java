@@ -1,6 +1,8 @@
 package controller;
 
 import model.Board;
+import model.Color;
+import model.Disc;
 import model.Rules;
 import view.OthelloView;
 import view.Screens;
@@ -32,6 +34,7 @@ public class OthelloController {
     public void createAndShowGUI() {
         v = new OthelloView();
         addStartScreenListeners();
+        addGameScreenListeners();
         v.show();
     }
 
@@ -45,5 +48,21 @@ public class OthelloController {
         s.getStartScreen().getQuitButton().addActionListener(e -> {
             System.exit(0);
         });
+    }
+
+    public void addGameScreenListeners() {
+        Screens s = v.getScreens();
+        JButton[][] tiles = s.getGameScreen().getTiles();
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                Disc disc = board.GetDisc(i, j);
+                tiles[i][j].addActionListener(e -> {
+                    if (rules.isLegalMove(board,disc, Color.BLACK)) {
+                        rules.flipDiscs(board, disc, Color.BLACK);
+                        v.showMessage(board.toString());
+                    }
+                });
+            }
+        }
     }
 }

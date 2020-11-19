@@ -3,7 +3,6 @@ package view;
 import javax.swing.*;
 
 public class StartScreen extends JPanel {
-    private JFrame frame;
     private JButton startButton;
     private JButton quitButton;
     private JLabel title;
@@ -26,5 +25,13 @@ public class StartScreen extends JPanel {
         this.add(title);
         this.add(startButton);
         this.add(quitButton);
+    }
+
+    public JButton getStartButton() {
+        return startButton;
+    }
+
+    public JButton getQuitButton() {
+        return quitButton;
     }
 }
