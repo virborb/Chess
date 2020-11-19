@@ -55,5 +55,17 @@ public class Screens extends JPanel {
         cardLayout.show(this, END);
     }
 
+    public StartScreen getStartScreen() {
+        return startScreen;
+    }
+
+    public GameScreen getGameScreen() {
+        return gameScreen;
+    }
+
+    public EndScreen getEndScreen() {
+        return endScreen;
+    }
+
 
 }
