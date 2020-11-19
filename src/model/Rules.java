@@ -1,6 +1,6 @@
 package model;
 
-import controller.Othello;
+import controller.OthelloController;
 
 import java.util.ArrayList;
 
@@ -45,7 +45,7 @@ public class Rules {
         int sumCol = start.getCol() + direction.getCol();
         boolean opponentDisc = false;
         ArrayList<Disc> discs = new ArrayList<>();
-        while(sumRow >= 0 && sumRow < Othello.ROWS && sumCol >= 0 && sumCol < Othello.COLUMNS) {
+        while(sumRow >= 0 && sumRow < OthelloController.ROWS && sumCol >= 0 && sumCol < OthelloController.COLUMNS) {
             Disc deltaDisc = board.GetDisc(sumRow, sumCol);
             Color deltaColor = deltaDisc.getColor();
             if((player != deltaColor && deltaColor != Color.EMPTY)) {
@@ -66,7 +66,7 @@ public class Rules {
         int sumRow = start.getRow() + direction.getRow();
         int sumCol = start.getCol() + direction.getCol();
         boolean opponentDisc = false;
-        while(sumRow >= 0 && sumRow < Othello.ROWS && sumCol >= 0 && sumCol < Othello.COLUMNS) {
+        while(sumRow >= 0 && sumRow < OthelloController.ROWS && sumCol >= 0 && sumCol < OthelloController.COLUMNS) {
             Disc deltaDisc = board.GetDisc(sumRow, sumCol);
             Color deltaColor = deltaDisc.getColor();
             if((player != deltaColor && deltaColor != Color.EMPTY)) {

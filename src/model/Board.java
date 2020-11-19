@@ -1,6 +1,6 @@
 package model;
 
-import controller.Othello;
+import controller.OthelloController;
 
 /**
  * Holds all Model.Disc that are on the board.
@@ -17,8 +17,8 @@ public class Board {
      * of the game.
      */
     public void initBoard() {
-        for (int row = 0; row < Othello.ROWS; row++) {
-            for (int col = 0; col < Othello.COLUMNS; col++) {
+        for (int row = 0; row < OthelloController.ROWS; row++) {
+            for (int col = 0; col < OthelloController.COLUMNS; col++) {
                 Position position = new Position(row,col);
                 board[row][col] = new Disc(position);
                 if ((row == 3 && col == 3) || (row == 4 && col == 4)) {
@@ -43,8 +43,8 @@ public class Board {
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder();
-        for (int row = 0; row < Othello.ROWS; row++) {
-            for (int col = 0; col < Othello.COLUMNS; col++) {
+        for (int row = 0; row < OthelloController.ROWS; row++) {
+            for (int col = 0; col < OthelloController.COLUMNS; col++) {
                 String tmp = "b";
                 switch (board[row][col].getColor()) {
                     case BLACK:
