@@ -52,11 +52,10 @@ public class Rules {
         return false;
     }
 
-    public void flipDiscs(Board board, Disc disc, Color player) {
-        Position start = disc.getPosition();
-        disc.setColor(player);
+    public void flipDiscs(Board board, Position position, Color player) {
+        board.GetDisc(position.getRow(), position.getCol()).setColor(player);
         for (Position dir : directions) {
-            flipDiscDirection(board, start, dir, player);
+            flipDiscDirection(board, position, dir, player);
         }
     }
 

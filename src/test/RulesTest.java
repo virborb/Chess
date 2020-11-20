@@ -1,9 +1,6 @@
 package test;
 
-import model.Board;
-import model.Color;
-import model.Disc;
-import model.Rules;
+import model.*;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,19 +29,19 @@ class RulesTest {
 
     @Test
     void testHasNoLegaMove() {
-        Disc disc = board.GetDisc(5, 4);
-        rules.flipDiscs(board, disc, Color.BLACK);
-        disc = board.GetDisc(2, 3);
-        rules.flipDiscs(board, disc, Color.BLACK);
+        Position position = new Position(5, 4);
+        rules.flipDiscs(board, position, Color.BLACK);
+        position = new Position(2, 3);
+        rules.flipDiscs(board, position, Color.BLACK);
         assertFalse(rules.hasLegalMoves(board, Color.BLACK));
     }
 
     @Test
     void testIsGameOver() {
-        Disc disc = board.GetDisc(5, 4);
-        rules.flipDiscs(board, disc, Color.BLACK);
-        disc = board.GetDisc(2, 3);
-        rules.flipDiscs(board, disc, Color.BLACK);
+        Position position = new Position(5, 4);
+        rules.flipDiscs(board, position, Color.BLACK);
+        position = new Position(2, 3);
+        rules.flipDiscs(board, position, Color.BLACK);
         assertTrue(rules.isGameOver(board));
     }
 
@@ -75,8 +72,8 @@ class RulesTest {
 
     @Test
     void testFlipDiscs() {
-        Disc disc = board.GetDisc(5, 4);
-        rules.flipDiscs(board, disc, Color.BLACK);
+        Position position = new Position(5, 4);
+        rules.flipDiscs(board, position, Color.BLACK);
         String expectedBoard =
                 "EEEEEEEE\n" +
                 "EEEEEEEE\n" +
@@ -91,10 +88,10 @@ class RulesTest {
 
     @Test
     void testFlipDiscs2() {
-        Disc disc = board.GetDisc(5, 4);
-        rules.flipDiscs(board, disc, Color.BLACK);
-        disc = board.GetDisc(3, 5);
-        rules.flipDiscs(board, disc, Color.WHITE);
+        Position position = new Position(5, 4);
+        rules.flipDiscs(board, position, Color.BLACK);
+        position = new Position(3, 5);
+        rules.flipDiscs(board, position, Color.WHITE);
         String expectedBoard =
                 "EEEEEEEE\n" +
                 "EEEEEEEE\n" +

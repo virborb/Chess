@@ -61,10 +61,11 @@ public class OthelloController {
                 Disc disc = board.GetDisc(i, j);
                 tiles[i][j].addActionListener(e -> {
                     if (rules.isLegalMove(board,disc, Color.BLACK)) {
-                        rules.flipDiscs(board, disc, Color.BLACK);
+                        rules.flipDiscs(board, disc.getPosition(), Color.BLACK);
                         ArrayList<Disc> discs =  rules.getValidMoves(board, Color.WHITE);
                         Random r = new Random();
-                        rules.flipDiscs(board,discs.get(r.nextInt(discs.size())), Color.WHITE);
+                        rules.flipDiscs(board,discs.get(r.nextInt(discs.size())).getPosition(),
+                                Color.WHITE);
                         flipTiles();
                     } else {
                         v.showMessage("Non valid move");
