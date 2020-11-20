@@ -13,6 +13,21 @@ public class Board {
     }
 
     /**
+     * Make a copy of the board
+     * @param b The board to copy
+     */
+    public Board(Board b) {
+        this.board = new Disc[8][8];
+        for (int row = 0; row < OthelloController.ROWS; row++) {
+            for (int col = 0; col < OthelloController.COLUMNS; col++) {
+                Position position = new Position(row,col);
+                Color color = b.GetDisc(row, col).getColor();
+                this.board[row][col] = new Disc(position, color);
+            }
+        }
+    }
+
+    /**
      * Initiates a new board with the discs at starting positions
      * of the game.
      */

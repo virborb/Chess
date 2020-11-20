@@ -9,6 +9,11 @@ public class Disc {
         this.color = Color.EMPTY;
     }
 
+    public Disc(Position position, Color color) {
+        this.position = position;
+        this.color = color;
+    }
+
     /**
      * Flips a disc
      */
