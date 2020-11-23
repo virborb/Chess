@@ -59,6 +59,32 @@ public class Rules {
         }
     }
 
+    public int countBlackDiscs(Board b) {
+        Disc[][] discs = b.getBoard();
+        int sum = 0;
+        for (int i = 0; i < OthelloController.ROWS; i++) {
+            for (int j = 0; j < OthelloController.COLUMNS; j++) {
+                if(discs[i][j].getColor() == Color.BLACK) {
+                    sum++;
+                }
+            }
+        }
+        return sum;
+    }
+
+    public int countWhiteDiscs(Board b) {
+        Disc[][] discs = b.getBoard();
+        int sum = 0;
+        for (int i = 0; i < OthelloController.ROWS; i++) {
+            for (int j = 0; j < OthelloController.COLUMNS; j++) {
+                if(discs[i][j].getColor() == Color.WHITE) {
+                    sum++;
+                }
+            }
+        }
+        return sum;
+    }
+
     private void flipDiscDirection(Board board, Position start, Position direction, Color player) {
         int sumRow = start.getRow() + direction.getRow();
         int sumCol = start.getCol() + direction.getCol();
