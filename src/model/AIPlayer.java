@@ -30,10 +30,11 @@ public class AIPlayer {
     public Position nextMove(Board b, Color player) {
         ArrayList<Disc> discs = r.getValidMoves(b, player);
         int value = 0;
-        Position position;
-        Board c = new Board(b);
+        Position position = null;
         for (Disc dice : discs) {
-            r.
+            Board c = new Board(b);
+            position = dice.getPosition();
+            r.flipDiscs(c, position, player);
             int color = (player == Color.BLACK) ? 1 : 0;
             int tmp = negaMax(c, 0, color, Integer.MIN_VALUE, Integer.MAX_VALUE);
             if (player == Color.BLACK && tmp > value) {
@@ -42,6 +43,7 @@ public class AIPlayer {
                 position = dice.getPosition();
             }
         }
+        return position;
     }
 
     /**
