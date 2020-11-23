@@ -37,4 +37,12 @@ public class EndScreen extends JPanel {
     public void setWinner(String winner) {
         this.winner.setText(winner);
     }
+
+    public JButton getNewGame() {
+        return newGame;
+    }
+
+    public JButton getQuit() {
+        return quit;
+    }
 }
