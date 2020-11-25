@@ -3,6 +3,7 @@ package model;
 import controller.OthelloController;
 
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 public class Rules {
     private final Position[] directions;
@@ -20,15 +21,8 @@ public class Rules {
     }
 
     public ArrayList<Disc> getValidMoves(Board board, Color player) {
-        ArrayList<Disc> discs = new ArrayList<>();
-        for (int i = 0; i < OthelloController.ROWS; i++) {
-            for (int j = 0; j < OthelloController.COLUMNS; j++) {
-                Disc disc = board.GetDisc(i, j);
-                if(isLegalMove(board, disc, player)) {
-                    discs.add(disc);
-                }
-            }
-        }
+        ArrayList<Disc> discs = (ArrayList<Disc>) board.getBoard().clone();
+        discs.removeIf(disc -> !isLegalMove(board, disc, player));
         return discs;
     }
 
@@ -40,10 +34,10 @@ public class Rules {
     }
 
     public boolean isLegalMove(Board board, Disc disc, Color player) {
-        Position start = disc.getPosition();
         if(!disc.getColor().equals(Color.EMPTY)) {
             return false;
         }
+        Position start = disc.getPosition();
         for (Position dir : directions) {
             if (checkDirection(board, start, dir, player)) {
                 return true;
@@ -60,26 +54,22 @@ public class Rules {
     }
 
     public int countBlackDiscs(Board b) {
-        Disc[][] discs = b.getBoard();
+        ArrayList<Disc> discs = b.getBoard();
         int sum = 0;
-        for (int i = 0; i < OthelloController.ROWS; i++) {
-            for (int j = 0; j < OthelloController.COLUMNS; j++) {
-                if(discs[i][j].getColor() == Color.BLACK) {
-                    sum++;
-                }
+        for (Disc d: discs) {
+            if(d.getColor() == Color.BLACK) {
+                sum++;
             }
         }
         return sum;
     }
 
     public int countWhiteDiscs(Board b) {
-        Disc[][] discs = b.getBoard();
+        ArrayList<Disc> discs = b.getBoard();
         int sum = 0;
-        for (int i = 0; i < OthelloController.ROWS; i++) {
-            for (int j = 0; j < OthelloController.COLUMNS; j++) {
-                if(discs[i][j].getColor() == Color.WHITE) {
-                    sum++;
-                }
+        for (Disc d: discs) {
+            if(d.getColor() == Color.WHITE) {
+                sum++;
             }
         }
         return sum;
