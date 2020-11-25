@@ -2,14 +2,16 @@ package model;
 
 import controller.OthelloController;
 
+import java.util.ArrayList;
+
 /**
  * Holds all Model.Disc that are on the board.
  */
 public class Board {
-    private final Disc[][] board;
+    private final ArrayList<Disc> board;
 
     public Board() {
-        this.board = new Disc[8][8];
+        this.board = new ArrayList<>(OthelloController.ROWS*OthelloController.COLUMNS);
     }
 
     /**
@@ -17,12 +19,12 @@ public class Board {
      * @param b The board to copy
      */
     public Board(Board b) {
-        this.board = new Disc[8][8];
+        this.board = new ArrayList<>(OthelloController.ROWS*OthelloController.COLUMNS);
         for (int row = 0; row < OthelloController.ROWS; row++) {
             for (int col = 0; col < OthelloController.COLUMNS; col++) {
                 Position position = new Position(row,col);
                 Color color = b.GetDisc(row, col).getColor();
-                this.board[row][col] = new Disc(position, color);
+                this.board.add(new Disc(position, color));
             }
         }
     }
@@ -35,11 +37,11 @@ public class Board {
         for (int row = 0; row < OthelloController.ROWS; row++) {
             for (int col = 0; col < OthelloController.COLUMNS; col++) {
                 Position position = new Position(row,col);
-                board[row][col] = new Disc(position);
+                board.add(new Disc(position));
                 if ((row == 3 && col == 3) || (row == 4 && col == 4)) {
-                    board[row][col].setColor(Color.WHITE);
+                    board.get(row*OthelloController.ROWS+col).setColor(Color.WHITE);
                 } else if ((row == 3 && col == 4) || (row == 4 && col == 3)) {
-                    board[row][col].setColor(Color.BLACK);
+                    board.get(row*OthelloController.ROWS+col).setColor(Color.BLACK);
                 }
             }
         }
@@ -52,14 +54,14 @@ public class Board {
      * @return The specified disc.
      */
     public Disc GetDisc(int row, int col) {
-        return board[row][col];
+        return board.get(row*OthelloController.ROWS+col);
     }
 
     /**
      *
      * @return The board.
      */
-    public Disc[][] getBoard() {
+    public ArrayList<Disc> getBoard() {
         return board;
     }
 
@@ -69,7 +71,7 @@ public class Board {
         for (int row = 0; row < OthelloController.ROWS; row++) {
             for (int col = 0; col < OthelloController.COLUMNS; col++) {
                 String tmp = "b";
-                switch (board[row][col].getColor()) {
+                switch (board.get(row*OthelloController.ROWS+col).getColor()) {
                     case BLACK:
                         tmp = "B";
                         break;
