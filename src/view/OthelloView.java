@@ -6,7 +6,7 @@ import java.awt.*;
 public class OthelloView {
     private JFrame frame;
     private JMenuBar mb;
-    private Screens screens;
+    private GameScreen gameScreen;
 
     public final static int FRAME_WIDTH = 600;
     public final static int FRAME_HEIGH = 600;
@@ -19,8 +19,8 @@ public class OthelloView {
         frame.setMinimumSize(d);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        screens = new Screens();
-        frame.add(screens);
+        gameScreen = new GameScreen();
+        frame.add(gameScreen);
 
         mb = new JMenuBar();
         frame.setJMenuBar(mb);
@@ -39,7 +39,7 @@ public class OthelloView {
         JOptionPane.showMessageDialog(frame, message);
     }
 
-    public Screens getScreens() {
-        return screens;
+    public GameScreen getGameScreen() {
+        return gameScreen;
     }
 }

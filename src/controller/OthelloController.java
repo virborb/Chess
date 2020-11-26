@@ -1,9 +1,7 @@
 package controller;
 
 import model.*;
-import view.EndScreen;
 import view.OthelloView;
-import view.Screens;
 
 import javax.swing.*;
 
@@ -13,9 +11,10 @@ public class OthelloController {
     public final static int TILE_WIDTH = 50;
     public final static int TILE_HEIGHT = 50;
     private OthelloView v;
-    private Rules rules;
-    private Board board;
-    private AIPlayer ai;
+    private final Rules rules;
+    private final Board board;
+    private final AIPlayer ai;
+
     public OthelloController() {
         board = new Board();
         rules = new Rules();
@@ -32,25 +31,12 @@ public class OthelloController {
 
     public void createAndShowGUI() {
         v = new OthelloView();
-        addStartScreenListeners();
         addGameScreenListeners();
-        addEndScreenListeners();
+        //addEndScreenListeners();
         v.show();
     }
 
-    public void addStartScreenListeners() {
-        Screens s = v.getScreens();
-
-        s.getStartScreen().getStartButton().addActionListener(e -> {
-            s.showGameScreen();
-        });
-
-        s.getStartScreen().getQuitButton().addActionListener(e -> {
-            System.exit(0);
-        });
-    }
-
-    public void addEndScreenListeners() {
+    /*public void addEndScreenListeners() {
         Screens s = v.getScreens();
 
         s.getEndScreen().getNewGame().addActionListener(e -> {
@@ -63,24 +49,21 @@ public class OthelloController {
         s.getEndScreen().getQuit().addActionListener(e -> {
             System.exit(0);
         });
-    }
+    }*/
 
     public void addGameScreenListeners() {
-        Screens s = v.getScreens();
-        JButton[][] tiles = s.getGameScreen().getTiles();
+        JButton[][] tiles = v.getGameScreen().getTiles();
         flipTiles();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 int finalI = i;
                 int finalJ = j;
-                tiles[i][j].addActionListener(e -> {
-                    makeMove(s, board.GetDisc(finalI, finalJ));
-                });
+                tiles[i][j].addActionListener(e -> makeMove(board.GetDisc(finalI, finalJ)));
             }
         }
     }
 
-    private void makeMove(Screens s, Disc disc) {
+    private void makeMove(Disc disc) {
         if (rules.isLegalMove(board, disc, Color.BLACK)) {
             rules.flipDiscs(board, disc.getPosition(), Color.BLACK);
             do {
@@ -93,26 +76,24 @@ public class OthelloController {
             } while (!rules.hasLegalMoves(board, Color.BLACK));
             flipTiles();
             if (rules.isGameOver(board)) {
-                gameOver(s);
+                gameOver();
             }
         } else {
             v.showMessage("Non valid move");
         }
     }
 
-    private void gameOver(Screens s) {
-        s.showEndScreen();
-        EndScreen endScreen = s.getEndScreen();
+    private void gameOver() {
         int black = board.countBlackDiscs();
         int white = board.countWhiteDiscs();
-        endScreen.setBlackScore(black);
-        endScreen.setWhiteScore(white);
         if(black > white) {
-            endScreen.setWinner("Black Won");
+            v.showMessage("Black Won with " + black +
+                    " against " + white);
         } else if(white > black) {
-            endScreen.setWinner("White Won");
+            v.showMessage("White Won with " + white +
+                    " against " + black);
         } else {
-            endScreen.setWinner("Tie");
+            v.showMessage("Tie");
         }
     }
 
@@ -121,11 +102,11 @@ public class OthelloController {
             for (int j = 0; j < 8; j++) {
                 Color color = board.GetDisc(i,j).getColor();
                 if(Color.BLACK == color) {
-                    v.getScreens().getGameScreen().changeTileColor(i, j, java.awt.Color.BLACK);
+                    v.getGameScreen().changeTileColor(i, j, java.awt.Color.BLACK);
                 } else if(Color.WHITE == color) {
-                    v.getScreens().getGameScreen().changeTileColor(i, j, java.awt.Color.WHITE);
+                    v.getGameScreen().changeTileColor(i, j, java.awt.Color.WHITE);
                 } else {
-                    v.getScreens().getGameScreen().changeTileColor(i, j, java.awt.Color.GREEN);
+                    v.getGameScreen().changeTileColor(i, j, java.awt.Color.GREEN);
                 }
             }
         }
