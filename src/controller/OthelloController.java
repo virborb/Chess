@@ -74,42 +74,49 @@ public class OthelloController {
                 int finalI = i;
                 int finalJ = j;
                 tiles[i][j].addActionListener(e -> {
-                    Disc disc = board.GetDisc(finalI, finalJ);
-                    if (rules.isLegalMove(board, disc, Color.BLACK)) {
-                        rules.flipDiscs(board, disc.getPosition(), Color.BLACK);
-                        do {
-                            if (rules.hasLegalMoves(board, Color.WHITE)) {
-                                Position position = ai.nextMove(board, Color.WHITE);
-                                rules.flipDiscs(board, position, Color.WHITE);
-                            } else {
-                                break;
-                            }
-                        } while (!rules.hasLegalMoves(board, Color.BLACK));
-                        flipTiles();
-                        if (rules.isGameOver(board)) {
-                            s.showEndScreen();
-                            EndScreen endScreen = s.getEndScreen();
-                            int black = board.countBlackDiscs();
-                            int white = board.countWhiteDiscs();
-                            endScreen.setBlackScore(black);
-                            endScreen.setWhiteScore(white);
-                            if(black > white) {
-                                endScreen.setWinner("Black Won");
-                            } else if(white > black) {
-                                endScreen.setWinner("White Won");
-                            } else {
-                                endScreen.setWinner("Tie");
-                            }
-                        }
-                    } else {
-                        v.showMessage("Non valid move");
-                    }
+                    makeMove(s, board.GetDisc(finalI, finalJ));
                 });
             }
         }
     }
 
-    public void flipTiles() {
+    private void makeMove(Screens s, Disc disc) {
+        if (rules.isLegalMove(board, disc, Color.BLACK)) {
+            rules.flipDiscs(board, disc.getPosition(), Color.BLACK);
+            do {
+                if (rules.hasLegalMoves(board, Color.WHITE)) {
+                    Position position = ai.nextMove(board, Color.WHITE);
+                    rules.flipDiscs(board, position, Color.WHITE);
+                } else {
+                    break;
+                }
+            } while (!rules.hasLegalMoves(board, Color.BLACK));
+            flipTiles();
+            if (rules.isGameOver(board)) {
+                gameOver(s);
+            }
+        } else {
+            v.showMessage("Non valid move");
+        }
+    }
+
+    private void gameOver(Screens s) {
+        s.showEndScreen();
+        EndScreen endScreen = s.getEndScreen();
+        int black = board.countBlackDiscs();
+        int white = board.countWhiteDiscs();
+        endScreen.setBlackScore(black);
+        endScreen.setWhiteScore(white);
+        if(black > white) {
+            endScreen.setWinner("Black Won");
+        } else if(white > black) {
+            endScreen.setWinner("White Won");
+        } else {
+            endScreen.setWinner("Tie");
+        }
+    }
+
+    private void flipTiles() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 Color color = board.GetDisc(i,j).getColor();
