@@ -1,6 +1,7 @@
 package controller;
 
 import model.*;
+import view.MenuBar;
 import view.OthelloView;
 
 import javax.swing.*;
@@ -12,7 +13,7 @@ public class OthelloController {
     public final static int TILE_HEIGHT = 50;
     private OthelloView v;
     private final Rules rules;
-    private final Board board;
+    private Board board;
     private final AIPlayer ai;
 
     public OthelloController() {
@@ -32,24 +33,23 @@ public class OthelloController {
     public void createAndShowGUI() {
         v = new OthelloView();
         addGameScreenListeners();
-        //addEndScreenListeners();
+        addMenuBarListeners();
         v.show();
     }
 
-    /*public void addEndScreenListeners() {
-        Screens s = v.getScreens();
+    public void addMenuBarListeners() {
+        MenuBar menu = v.getMenubar();
 
-        s.getEndScreen().getNewGame().addActionListener(e -> {
+        menu.getNewGame().addActionListener(e -> {
             board = new Board();
             board.initBoard();
             flipTiles();
-            s.showGameScreen();
         });
 
-        s.getEndScreen().getQuit().addActionListener(e -> {
+        menu.getQuit().addActionListener(e -> {
             System.exit(0);
         });
-    }*/
+    }
 
     public void addGameScreenListeners() {
         JButton[][] tiles = v.getGameScreen().getTiles();

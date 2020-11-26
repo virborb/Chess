@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class OthelloView {
     private JFrame frame;
-    private JMenuBar mb;
+    private MenuBar mb;
     private GameScreen gameScreen;
 
     public final static int FRAME_WIDTH = 600;
@@ -22,7 +22,7 @@ public class OthelloView {
         gameScreen = new GameScreen();
         frame.add(gameScreen);
 
-        mb = new JMenuBar();
+        mb = new MenuBar();
         frame.setJMenuBar(mb);
 
         frame.pack();
@@ -41,5 +41,9 @@ public class OthelloView {
 
     public GameScreen getGameScreen() {
         return gameScreen;
+    }
+
+    public MenuBar getMenubar() {
+        return mb;
     }
 }
