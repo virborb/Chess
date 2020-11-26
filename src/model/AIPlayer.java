@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * The ai player tries to predict the best move to make on
+ * the board using an negaMax algorithm with alpha beta pruning.
+ */
 public class AIPlayer {
     private static final int[] POINTS = { 5,-1, 4, 4, 4, 4,-1, 5,
                                          -1,-2, 2, 2, 2, 2,-2,-1,
@@ -21,9 +25,19 @@ public class AIPlayer {
 
     private Rules r;
 
+    /**
+     * Constructs a new AIPlayer.
+     */
     public AIPlayer() {
         r = new Rules();
     }
+
+    /**
+     * Find the best move for the player.
+     * @param b the board to find the move on.
+     * @param player the player which is making the move.
+     * @return the next move to make.
+     */
     public Position nextMove(Board b, Color player) {
         ArrayList<Disc> discs = r.getValidMoves(b, player);
         AtomicInteger value = new AtomicInteger(Integer.MAX_VALUE);
@@ -36,7 +50,6 @@ public class AIPlayer {
             value.updateAndGet( v -> {
                 if (tmp < v) {
                     position.set(disc.getPosition());
-                    System.out.println(tmp);
                     return tmp;
                 }
                 return v;
@@ -80,19 +93,30 @@ public class AIPlayer {
      */
     private int analysis(Board board) {
         ArrayList<Disc> discs = board.getBoard();
-        int value = discs.parallelStream().filter(e -> e.getColor() != Color.EMPTY).mapToInt(this::sumScore).sum();
+        int value = discs.parallelStream().filter(e -> e.getColor() != Color.EMPTY).mapToInt(this::checkScore).sum();
         value = value + mobility(board);
-        System.out.println(value);
         return value;
     }
 
-    private int sumScore(Disc disc) {
+    /**
+     * Gets the score of the disc's position
+     * @param disc the position to check
+     * @return the score
+     */
+    private int checkScore(Disc disc) {
         int color = (disc.getColor() == Color.BLACK) ? 0 : 1;
         Position p = disc.getPosition();
         int sum = POINTS[p.getRow()*OthelloController.ROWS+p.getCol()];
         return SIGN[color]*sum;
     }
 
+    /**
+     * Check the mobility of both player.
+     * high value good for black and a
+     * lower value is good for white
+     * @param board the board to check
+     * @return a value based on both players mobility.
+     */
     private int mobility(Board board) {
         return (r.getValidMoves(board, Color.BLACK).size()-r.getValidMoves(board, Color.WHITE).size())*5;
     }
