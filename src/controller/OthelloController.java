@@ -6,8 +6,6 @@ import view.OthelloView;
 import view.Screens;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Random;
 
 public class OthelloController {
     public final static int ROWS = 8;
@@ -91,8 +89,8 @@ public class OthelloController {
                         if (rules.isGameOver(board)) {
                             s.showEndScreen();
                             EndScreen endScreen = s.getEndScreen();
-                            int black = rules.countBlackDiscs(board);
-                            int white = rules.countWhiteDiscs(board);
+                            int black = board.countBlackDiscs();
+                            int white = board.countWhiteDiscs();
                             endScreen.setBlackScore(black);
                             endScreen.setWhiteScore(white);
                             if(black > white) {

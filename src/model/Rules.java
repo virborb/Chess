@@ -91,38 +91,6 @@ public class Rules {
     }
 
     /**
-     * Counts all the black discs on the board.
-     * @param b The board to count on.
-     * @return The number of black discs.
-     */
-    public int countBlackDiscs(Board b) {
-        ArrayList<Disc> discs = b.getBoard();
-        int sum = 0;
-        for (Disc d: discs) {
-            if(d.getColor() == Color.BLACK) {
-                sum++;
-            }
-        }
-        return sum;
-    }
-
-    /**
-     * Counts all the white discs on the board.
-     * @param b The board to count on.
-     * @return The number of white discs.
-     */
-    public int countWhiteDiscs(Board b) {
-        ArrayList<Disc> discs = b.getBoard();
-        int sum = 0;
-        for (Disc d: discs) {
-            if(d.getColor() == Color.WHITE) {
-                sum++;
-            }
-        }
-        return sum;
-    }
-
-    /**
      * Flips all disc in one direction on the board if it's possible.
      * @param board The board which has the discs.
      * @param start The start position

@@ -48,6 +48,35 @@ public class Board {
     }
 
     /**
+     * Counts all the white discs on the board.
+     * @return The number of white discs.
+     */
+    public int countWhiteDiscs() {
+        int sum = 0;
+        for (Disc d: board) {
+            if(d.getColor() == Color.WHITE) {
+                sum++;
+            }
+        }
+        return sum;
+    }
+
+    /**
+     * Counts all the black discs on the board.
+     * @return The number of black discs.
+     */
+    public int countBlackDiscs() {
+        ArrayList<Disc> discs = getBoard();
+        int sum = 0;
+        for (Disc d: discs) {
+            if(d.getColor() == Color.BLACK) {
+                sum++;
+            }
+        }
+        return sum;
+    }
+
+    /**
      * Gets a disc from specified position.
      * @param row The row where the disc is.
      * @param col The column where the disc is.
