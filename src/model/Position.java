@@ -9,6 +9,11 @@ public class Position {
     private final int row;
     private final int col;
 
+    /**
+     * Constructs a Position with the given row and column.
+     * @param row The row to set
+     * @param col The column to set
+     */
     public Position(int row, int col) {
         this.row = row;
         this.col = col;
@@ -25,10 +30,16 @@ public class Position {
         this.col = position[1];
     }
 
+    /**
+     * @return The row of the Position.
+     */
     public int getRow() {
         return row;
     }
 
+    /**
+     * @return The column of the Position.
+     */
     public int getCol() {
         return col;
     }
