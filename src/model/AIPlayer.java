@@ -60,7 +60,8 @@ public class AIPlayer {
 
     /**
      * A negaMax algorithm with alpha beta pruning to find the best move. the initial should be called
-     * with {@code depth=0, alpha=-infinity and beta=infinity}.
+     * with {@code depth=0, alpha=-infinity and beta=infinity}. Based on pseudocode
+     * found here <A "href=http://www.hamedahmadi.com/gametree/">http://www.hamedahmadi.com/gametree/</A>
      * @param b The board
      * @param depth The depth of the search
      * @param color The color of the player
