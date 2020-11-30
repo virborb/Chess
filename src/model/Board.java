@@ -44,6 +44,7 @@ public class Board {
         this.blackDisc = b.getBlackDisc();
         this.whiteDisc = b.getWhiteDisc();
         this.boardImage = b.getBoardImage();
+        this.emptyDisc = b.getEmptyDisc();
     }
 
     /**

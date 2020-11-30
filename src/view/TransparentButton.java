@@ -19,7 +19,6 @@ public class TransparentButton extends JButton {
         this.setBounds(x, y, width, height);
         this.setOpaque(false);
         bg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        //this.setBackground(Color.GREEN);
     }
 
     /**

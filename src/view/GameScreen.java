@@ -24,7 +24,6 @@ public class GameScreen extends JPanel {
                 this.add(tiles[i][j]);
             }
         }
-        //this.setBackground(Color.darkGray);
         this.setSize(603,603);
         bg = new BufferedImage(OthelloView.FRAME_WIDTH, OthelloView.FRAME_HEIGHT, BufferedImage.TYPE_INT_ARGB);
     }
