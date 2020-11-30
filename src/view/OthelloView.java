@@ -8,16 +8,17 @@ public class OthelloView {
     private MenuBar mb;
     private GameScreen gameScreen;
 
-    public final static int FRAME_WIDTH = 600;
-    public final static int FRAME_HEIGH = 600;
+    public final static int FRAME_WIDTH = 619;
+    public final static int FRAME_HEIGHT = 665;
 
     public OthelloView() {
-        Dimension d = new Dimension(FRAME_WIDTH, FRAME_HEIGH);
+        Dimension d = new Dimension(FRAME_WIDTH, FRAME_HEIGHT);
 
         frame = new JFrame("Othello");
         frame.setSize(d);
         frame.setMinimumSize(d);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(false);
 
         gameScreen = new GameScreen();
         frame.add(gameScreen);
