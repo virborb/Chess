@@ -5,12 +5,13 @@ import view.MenuBar;
 import view.OthelloView;
 
 import javax.swing.*;
+import java.awt.image.BufferedImage;
 
 public class OthelloController {
     public final static int ROWS = 8;
     public final static int COLUMNS = 8;
-    public final static int TILE_WIDTH = 50;
-    public final static int TILE_HEIGHT = 50;
+    public final static int TILE_WIDTH = 75;
+    public final static int TILE_HEIGHT = 75;
     private OthelloView v;
     private final Rules rules;
     private Board board;
@@ -34,6 +35,8 @@ public class OthelloController {
         v = new OthelloView();
         addGameScreenListeners();
         addMenuBarListeners();
+        BufferedImage bg = board.getBoardImage();
+        v.getGameScreen().setBackgroundImage(bg);
         v.show();
     }
 
@@ -102,11 +105,11 @@ public class OthelloController {
             for (int j = 0; j < 8; j++) {
                 Color color = board.GetDisc(i,j).getColor();
                 if(Color.BLACK == color) {
-                    v.getGameScreen().changeTileColor(i, j, java.awt.Color.BLACK);
+                    v.getGameScreen().changeTileColor(i, j, board.getBlackDisc());
                 } else if(Color.WHITE == color) {
-                    v.getGameScreen().changeTileColor(i, j, java.awt.Color.WHITE);
+                    v.getGameScreen().changeTileColor(i, j, board.getWhiteDisc());
                 } else {
-                    v.getGameScreen().changeTileColor(i, j, java.awt.Color.GREEN);
+                    v.getGameScreen().changeTileColor(i, j, board.getEmptyDisc());
                 }
             }
         }
