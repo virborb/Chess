@@ -81,8 +81,6 @@ public class OthelloController {
             if (rules.isGameOver(board)) {
                 gameOver();
             }
-        } else {
-            v.showMessage("Non valid move");
         }
     }
 
