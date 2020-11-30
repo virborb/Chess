@@ -2,20 +2,34 @@ package model;
 
 import controller.OthelloController;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
- * Holds all Model.Disc that are on the board.
+ * Holds all the Discs that are on the board.
  */
 public class Board {
     private final ArrayList<Disc> board;
+    private BufferedImage blackDisc;
+    private BufferedImage whiteDisc;
+    private BufferedImage boardImage;
+    private BufferedImage emptyDisc;
 
     public Board() {
         this.board = new ArrayList<>(OthelloController.ROWS*OthelloController.COLUMNS);
+        try {
+            this.getDiscImages();
+            this.setBoardImage();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
-     * Make a copy of the board
+     * Make a copy of the board.
      * @param b The board to copy
      */
     public Board(Board b) {
@@ -27,6 +41,9 @@ public class Board {
                 this.board.add(new Disc(position, color));
             }
         }
+        this.blackDisc = b.getBlackDisc();
+        this.whiteDisc = b.getWhiteDisc();
+        this.boardImage = b.getBoardImage();
     }
 
     /**
@@ -45,6 +62,31 @@ public class Board {
                 }
             }
         }
+    }
+
+    /**
+     * @return The black disc image
+     */
+    public BufferedImage getBlackDisc() {
+        return blackDisc;
+    }
+
+    /**
+     * @return The white disc image.
+     */
+    public BufferedImage getWhiteDisc() {
+        return whiteDisc;
+    }
+
+    /**
+     * @return The empty disc image.
+     */
+    public BufferedImage getEmptyDisc() {
+        return emptyDisc;
+    }
+
+    public BufferedImage getBoardImage() {
+        return boardImage;
     }
 
     /**
@@ -116,5 +158,23 @@ public class Board {
             string.append("\n");
         }
         return string.toString();
+    }
+
+    /**
+     * Gets the images for the disc
+     * @throws IOException if it can't get an image.
+     */
+    private void getDiscImages() throws IOException {
+        URL url = getClass().getResource("/images/black_disc.png");
+        blackDisc = ImageIO.read(url);
+        url = getClass().getResource("/images/white_disc.png");
+        whiteDisc = ImageIO.read(url);
+        emptyDisc = new BufferedImage(OthelloController.TILE_WIDTH, OthelloController.TILE_HEIGHT,
+                BufferedImage.TYPE_INT_ARGB);
+    }
+
+    private void setBoardImage() throws IOException {
+        URL url = getClass().getResource("/images/board.png");
+        boardImage = ImageIO.read(url);
     }
 }
