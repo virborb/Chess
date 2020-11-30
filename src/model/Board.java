@@ -174,7 +174,7 @@ public class Board {
     }
 
     private void setBoardImage() throws IOException {
-        URL url = getClass().getResource("/images/board.png");
+        URL url = getClass().getResource("/images/boardTwo.png");
         boardImage = ImageIO.read(url);
     }
 }
