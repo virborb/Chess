@@ -2,6 +2,9 @@ package view;
 
 import javax.swing.*;
 
+/**
+ * The menu bar with the game and help menu.
+ */
 public class MenuBar extends JMenuBar {
     private JMenu gameMenu;
     private JMenu helpMenu;
@@ -9,6 +12,9 @@ public class MenuBar extends JMenuBar {
     private JMenuItem quit;
     private JMenuItem about;
 
+    /**
+     * Constructs a Menubar with a game and help menu.
+     */
     public MenuBar() {
         super();
         gameMenu = new JMenu("Game");
@@ -27,10 +33,16 @@ public class MenuBar extends JMenuBar {
         this.add(helpMenu);
     }
 
+    /**
+     * @return The new game button.
+     */
     public JMenuItem getNewGame() {
         return newGame;
     }
 
+    /**
+     * @return The quit button.
+     */
     public JMenuItem getQuit() {
         return quit;
     }

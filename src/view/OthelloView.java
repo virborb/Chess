@@ -3,6 +3,9 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The main view for the game
+ */
 public class OthelloView {
     private JFrame frame;
     private MenuBar mb;
@@ -11,6 +14,10 @@ public class OthelloView {
     public final static int FRAME_WIDTH = 619;
     public final static int FRAME_HEIGHT = 665;
 
+    /**
+     * Make a new frame with specified dimensions and
+     * adds the GameScreen and MenuBar.
+     */
     public OthelloView() {
         Dimension d = new Dimension(FRAME_WIDTH, FRAME_HEIGHT);
 
@@ -36,14 +43,24 @@ public class OthelloView {
         frame.setVisible(true);
     }
 
+    /**
+     * Show a message dialog popup.
+     * @param message The message to show.
+     */
     public void showMessage(String message) {
         JOptionPane.showMessageDialog(frame, message);
     }
 
+    /**
+     * @return The GameScreen
+     */
     public GameScreen getGameScreen() {
         return gameScreen;
     }
 
+    /**
+     * @return The MenuBar.
+     */
     public MenuBar getMenubar() {
         return mb;
     }

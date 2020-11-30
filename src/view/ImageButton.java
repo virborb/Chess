@@ -5,18 +5,21 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
- * A transparent button.
- *
+ * A button with an image.
  */
-public class TransparentButton extends JButton {
+public class ImageButton extends JButton {
     private static final long serialVersionUID = 1L;
     private BufferedImage bg;
 
-    public TransparentButton(int x,int y, int width, int height){
+    /**
+     * Creates a new button with an image.
+     * @param width
+     * @param height
+     */
+    public ImageButton(int width, int height){
         super();
         this.setContentAreaFilled(false);
         this.setBorderPainted(false);
-        this.setBounds(x, y, width, height);
         this.setOpaque(false);
         bg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
     }
@@ -30,6 +33,9 @@ public class TransparentButton extends JButton {
         graphics.drawImage(bg, 0, 0, null);
     }
 
+    /**
+     * @param bg The background image to set.
+     */
     public void setBackgroundImage(BufferedImage bg) {
         this.bg = bg;
         this.repaint();

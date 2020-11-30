@@ -105,11 +105,11 @@ public class OthelloController {
             for (int j = 0; j < 8; j++) {
                 Color color = board.GetDisc(i,j).getColor();
                 if(Color.BLACK == color) {
-                    v.getGameScreen().changeTileColor(i, j, board.getBlackDisc());
+                    v.getGameScreen().changeTileBackground(i, j, board.getBlackDisc());
                 } else if(Color.WHITE == color) {
-                    v.getGameScreen().changeTileColor(i, j, board.getWhiteDisc());
+                    v.getGameScreen().changeTileBackground(i, j, board.getWhiteDisc());
                 } else {
-                    v.getGameScreen().changeTileColor(i, j, board.getEmptyDisc());
+                    v.getGameScreen().changeTileBackground(i, j, board.getEmptyDisc());
                 }
             }
         }
