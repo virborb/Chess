@@ -6,7 +6,7 @@ import java.awt.*;
 /**
  * The main view for the game
  */
-public class OthelloView {
+public class ChessView {
     private JFrame frame;
     private MenuBar mb;
     private GameScreen gameScreen;
@@ -18,10 +18,10 @@ public class OthelloView {
      * Make a new frame with specified dimensions and
      * adds the GameScreen and MenuBar.
      */
-    public OthelloView() {
+    public ChessView() {
         Dimension d = new Dimension(FRAME_WIDTH, FRAME_HEIGHT);
 
-        frame = new JFrame("Othello");
+        frame = new JFrame("Chess");
         frame.setSize(d);
         frame.setMinimumSize(d);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

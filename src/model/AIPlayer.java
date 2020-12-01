@@ -1,6 +1,6 @@
 package model;
 
-import controller.OthelloController;
+import controller.ChessController;
 
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -107,7 +107,7 @@ public class AIPlayer {
     private int checkScore(Disc disc) {
         int color = (disc.getColor() == Color.BLACK) ? 0 : 1;
         Position p = disc.getPosition();
-        int sum = POINTS[p.getRow()*OthelloController.ROWS+p.getCol()];
+        int sum = POINTS[p.getRow()* ChessController.ROWS+p.getCol()];
         return SIGN[color]*sum;
     }
 

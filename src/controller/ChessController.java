@@ -1,8 +1,8 @@
 package controller;
 
 import model.*;
+import view.ChessView;
 import view.MenuBar;
-import view.OthelloView;
 
 import javax.swing.*;
 import java.awt.image.BufferedImage;
@@ -11,12 +11,12 @@ import java.awt.image.BufferedImage;
  * The controller class which handles the communication between the model and view.
  * Starts the gui and add action listeners to the buttons.
  */
-public class OthelloController {
+public class ChessController {
     public final static int ROWS = 8;
     public final static int COLUMNS = 8;
     public final static int TILE_WIDTH = 75;
     public final static int TILE_HEIGHT = 75;
-    private OthelloView v;
+    private ChessView v;
     private final Rules rules;
     private Board board;
     private final AIPlayer ai;
@@ -26,7 +26,7 @@ public class OthelloController {
      * starts a Swing utility which creates
      * the gui.
      */
-    public OthelloController() {
+    public ChessController() {
         board = new Board();
         rules = new Rules();
         ai = new AIPlayer();
@@ -46,7 +46,7 @@ public class OthelloController {
      * then shows the gui.
      */
     public void createAndShowGUI() {
-        v = new OthelloView();
+        v = new ChessView();
         addGameScreenListeners();
         addMenuBarListeners();
         BufferedImage bg = board.getBoardImage();

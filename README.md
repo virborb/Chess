@@ -1,1 +1,1 @@
-controller.Othello
+controller.Chess

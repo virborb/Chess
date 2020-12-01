@@ -5,11 +5,11 @@ import java.util.Date;
 
 /**
  *
- * Main class for the Othello game
+ * Main class for the Chess game
  *
  * Contains main method that starts a controller and sets error handling.
  */
-public class Othello {
+public class Chess {
     private static ByteArrayOutputStream tempErr;
 
     public static void main(String[] args) {
@@ -19,7 +19,7 @@ public class Othello {
         System.setErr(ps); //reroutes the output of system err to tempErr
         setUpHook();
 
-        new OthelloController();
+        new ChessController();
     }
 
     /**

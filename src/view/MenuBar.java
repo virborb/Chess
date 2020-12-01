@@ -52,7 +52,7 @@ public class MenuBar extends JMenuBar {
      */
     private void addAboutListener() {
         about.addActionListener(e -> {
-            String about = "Othello\n"
+            String about = "Chess\n"
                     + "\u00A9 2020 Copyright\n"
                     + "Victor Lundgren victor.lundgren@outlook.com";
             JOptionPane.showMessageDialog(this, about, "About", JOptionPane.INFORMATION_MESSAGE);

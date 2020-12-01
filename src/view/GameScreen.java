@@ -1,6 +1,6 @@
 package view;
 
-import controller.OthelloController;
+import controller.ChessController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,12 +27,12 @@ public class GameScreen extends JPanel {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 tiles[i][j] = new ImageButton(
-                        OthelloController.TILE_WIDTH, OthelloController.TILE_HEIGHT);
+                        ChessController.TILE_WIDTH, ChessController.TILE_HEIGHT);
                 this.add(tiles[i][j]);
             }
         }
         this.setSize(603,603);
-        bg = new BufferedImage(OthelloView.FRAME_WIDTH, OthelloView.FRAME_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+        bg = new BufferedImage(ChessView.FRAME_WIDTH, ChessView.FRAME_HEIGHT, BufferedImage.TYPE_INT_ARGB);
     }
 
     /**

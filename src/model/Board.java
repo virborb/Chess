@@ -1,6 +1,6 @@
 package model;
 
-import controller.OthelloController;
+import controller.ChessController;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -19,7 +19,7 @@ public class Board {
     private BufferedImage emptyDisc;
 
     public Board() {
-        this.board = new ArrayList<>(OthelloController.ROWS*OthelloController.COLUMNS);
+        this.board = new ArrayList<>(ChessController.ROWS* ChessController.COLUMNS);
         try {
             this.getDiscImages();
             this.setBoardImage();
@@ -33,9 +33,9 @@ public class Board {
      * @param b The board to copy
      */
     public Board(Board b) {
-        this.board = new ArrayList<>(OthelloController.ROWS*OthelloController.COLUMNS);
-        for (int row = 0; row < OthelloController.ROWS; row++) {
-            for (int col = 0; col < OthelloController.COLUMNS; col++) {
+        this.board = new ArrayList<>(ChessController.ROWS* ChessController.COLUMNS);
+        for (int row = 0; row < ChessController.ROWS; row++) {
+            for (int col = 0; col < ChessController.COLUMNS; col++) {
                 Position position = new Position(row,col);
                 Color color = b.GetDisc(row, col).getColor();
                 this.board.add(new Disc(position, color));
@@ -52,14 +52,14 @@ public class Board {
      * of the game.
      */
     public void initBoard() {
-        for (int row = 0; row < OthelloController.ROWS; row++) {
-            for (int col = 0; col < OthelloController.COLUMNS; col++) {
+        for (int row = 0; row < ChessController.ROWS; row++) {
+            for (int col = 0; col < ChessController.COLUMNS; col++) {
                 Position position = new Position(row,col);
                 board.add(new Disc(position));
                 if ((row == 3 && col == 3) || (row == 4 && col == 4)) {
-                    board.get(row*OthelloController.ROWS+col).setColor(Color.WHITE);
+                    board.get(row* ChessController.ROWS+col).setColor(Color.WHITE);
                 } else if ((row == 3 && col == 4) || (row == 4 && col == 3)) {
-                    board.get(row*OthelloController.ROWS+col).setColor(Color.BLACK);
+                    board.get(row* ChessController.ROWS+col).setColor(Color.BLACK);
                 }
             }
         }
@@ -126,7 +126,7 @@ public class Board {
      * @return The specified disc.
      */
     public Disc GetDisc(int row, int col) {
-        return board.get(row*OthelloController.ROWS+col);
+        return board.get(row* ChessController.ROWS+col);
     }
 
     /**
@@ -140,10 +140,10 @@ public class Board {
     @Override
     public String toString() {
         StringBuilder string = new StringBuilder();
-        for (int row = 0; row < OthelloController.ROWS; row++) {
-            for (int col = 0; col < OthelloController.COLUMNS; col++) {
+        for (int row = 0; row < ChessController.ROWS; row++) {
+            for (int col = 0; col < ChessController.COLUMNS; col++) {
                 String tmp = "b";
-                switch (board.get(row*OthelloController.ROWS+col).getColor()) {
+                switch (board.get(row* ChessController.ROWS+col).getColor()) {
                     case BLACK:
                         tmp = "B";
                         break;
@@ -170,7 +170,7 @@ public class Board {
         blackDisc = ImageIO.read(url);
         url = getClass().getResource("/images/white_disc.png");
         whiteDisc = ImageIO.read(url);
-        emptyDisc = new BufferedImage(OthelloController.TILE_WIDTH, OthelloController.TILE_HEIGHT,
+        emptyDisc = new BufferedImage(ChessController.TILE_WIDTH, ChessController.TILE_HEIGHT,
                 BufferedImage.TYPE_INT_ARGB);
     }
 
