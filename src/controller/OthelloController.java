@@ -7,6 +7,10 @@ import view.OthelloView;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 
+/**
+ * The controller class which handles the communication between the model and view.
+ * Starts the gui and add action listeners to the buttons.
+ */
 public class OthelloController {
     public final static int ROWS = 8;
     public final static int COLUMNS = 8;
@@ -17,6 +21,11 @@ public class OthelloController {
     private Board board;
     private final AIPlayer ai;
 
+    /**
+     * Creates a new Board, Rules and AIPlayer.
+     * starts a Swing utility which creates
+     * the gui.
+     */
     public OthelloController() {
         board = new Board();
         rules = new Rules();
@@ -31,6 +40,11 @@ public class OthelloController {
         });
     }
 
+    /**
+     * Creates the gui with all the action listeners and
+     * sets the background images for the board and
+     * then shows the gui.
+     */
     public void createAndShowGUI() {
         v = new OthelloView();
         addGameScreenListeners();
@@ -40,6 +54,10 @@ public class OthelloController {
         v.show();
     }
 
+    /**
+     * Adds action listener to start a new game and
+     * to exit the game.
+     */
     public void addMenuBarListeners() {
         MenuBar menu = v.getMenubar();
 
@@ -54,11 +72,14 @@ public class OthelloController {
         });
     }
 
+    /**
+     * Adds action listeners to all tiles on the board.
+     */
     public void addGameScreenListeners() {
         JButton[][] tiles = v.getGameScreen().getTiles();
         flipTiles();
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLUMNS; j++) {
                 int finalI = i;
                 int finalJ = j;
                 tiles[i][j].addActionListener(e -> makeMove(board.GetDisc(finalI, finalJ)));
@@ -66,6 +87,11 @@ public class OthelloController {
         }
     }
 
+    /**
+     * Make a move on board if it is a legal and check who
+     * is next to make a move or if the game is over.
+     * @param disc The disc where the move is made.
+     */
     private void makeMove(Disc disc) {
         if (rules.isLegalMove(board, disc, Color.BLACK)) {
             rules.flipDiscs(board, disc.getPosition(), Color.BLACK);
@@ -84,6 +110,10 @@ public class OthelloController {
         }
     }
 
+    /**
+     * Counts the discs on the board and
+     * shows which player won the game.
+     */
     private void gameOver() {
         int black = board.countBlackDiscs();
         int white = board.countWhiteDiscs();
@@ -98,9 +128,12 @@ public class OthelloController {
         }
     }
 
+    /**
+     * Flips all tiles on the gui board.
+     */
     private void flipTiles() {
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLUMNS; j++) {
                 Color color = board.GetDisc(i,j).getColor();
                 if(Color.BLACK == color) {
                     v.getGameScreen().changeTileBackground(i, j, board.getBlackDisc());
