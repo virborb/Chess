@@ -3,6 +3,9 @@ package model.Pieces;
 import model.Color;
 import model.Position;
 
+import javax.imageio.ImageIO;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class Pawn extends Piece {
@@ -11,6 +14,7 @@ public class Pawn extends Piece {
     public Pawn(Position position, Color color) {
         super(position, color);
         isFirstMove = true;
+        this.setImage();
     }
 
     @Override
@@ -19,6 +23,20 @@ public class Pawn extends Piece {
             return null;
         }
         return null;
+    }
+
+    private void setImage() {
+        URL url = null;
+        if(this.getColor().equals(Color.BLACK)) {
+            url = getClass().getResource("/images/blackPawn.png");
+        } else {
+            url = getClass().getResource("/images/whitePawn.png");
+        }
+        try {
+            this.setImage(ImageIO.read(url));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
