@@ -13,11 +13,11 @@ public class Chess {
     private static ByteArrayOutputStream tempErr;
 
     public static void main(String[] args) {
-        tempErr = new ByteArrayOutputStream(); //temporary errlog
+        //tempErr = new ByteArrayOutputStream(); //temporary errlog
 
-        PrintStream ps = new PrintStream(tempErr);
-        System.setErr(ps); //reroutes the output of system err to tempErr
-        setUpHook();
+        //PrintStream ps = new PrintStream(tempErr);
+        //System.setErr(ps); //reroutes the output of system err to tempErr
+        //setUpHook();
 
         new ChessController();
     }
