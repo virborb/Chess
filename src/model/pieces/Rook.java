@@ -1,5 +1,6 @@
 package model.pieces;
 
+import controller.ChessController;
 import model.Color;
 import model.Position;
 
@@ -17,7 +18,24 @@ public class Rook  extends Piece{
 
     @Override
     public ArrayList<Position> getMoves() {
-        return null;
+        ArrayList<Position> positions = new ArrayList<>();
+        Position start = this.getPosition();
+        Position[] directions = new Position[4];
+        directions[0] = new Position(-1,0);
+        directions[1] = new Position(1,0);
+        directions[2] = new Position(0,-1);
+        directions[3] = new Position(0,1);
+        for (Position direction : directions) {
+            int sumRow = start.getRow() + direction.getRow();
+            int sumCol = start.getCol() + direction.getCol();
+            boolean opponentDisc = false;
+            while(sumRow >= 0 && sumRow < ChessController.ROWS && sumCol >= 0 && sumCol < ChessController.COLUMNS) {
+                positions.add(new Position(sumRow, sumCol));
+                sumRow = sumRow + direction.getRow();
+                sumCol = sumCol + direction.getCol();
+            }
+        }
+        return positions;
     }
 
     @Override
