@@ -1,13 +1,8 @@
 package model.Pieces;
 
-import controller.ChessController;
 import model.Color;
 import model.Position;
-
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 
 public abstract class Piece {
@@ -20,7 +15,10 @@ public abstract class Piece {
         this.color = color;
     }
 
+
     public abstract ArrayList<Position> getMoves();
+
+    public abstract Piece copy();
 
     public Position getPosition() {
         return position;

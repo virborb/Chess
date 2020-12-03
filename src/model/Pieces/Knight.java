@@ -20,6 +20,11 @@ public class Knight extends Piece {
         return null;
     }
 
+    @Override
+    public Piece copy() {
+        return new Knight(this.getPosition(), this.getColor());
+    }
+
     private void setImage() {
         URL url = null;
         if(this.getColor().equals(Color.BLACK)) {
