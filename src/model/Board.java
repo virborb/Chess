@@ -1,27 +1,24 @@
 package model;
 
 import controller.ChessController;
+import model.pieces.*;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Holds all the Discs that are on the board.
  */
 public class Board {
-    private final ArrayList<Disc> board;
-    private BufferedImage blackDisc;
-    private BufferedImage whiteDisc;
+    private final ConcurrentHashMap<Position, Piece> board;
     private BufferedImage boardImage;
-    private BufferedImage emptyDisc;
 
     public Board() {
-        this.board = new ArrayList<>(ChessController.ROWS* ChessController.COLUMNS);
+        this.board = new ConcurrentHashMap<>();
         try {
-            this.getDiscImages();
             this.setBoardImage();
         } catch (IOException e) {
             e.printStackTrace();
@@ -33,18 +30,15 @@ public class Board {
      * @param b The board to copy
      */
     public Board(Board b) {
-        this.board = new ArrayList<>(ChessController.ROWS* ChessController.COLUMNS);
+        this.board = new ConcurrentHashMap<>();
         for (int row = 0; row < ChessController.ROWS; row++) {
             for (int col = 0; col < ChessController.COLUMNS; col++) {
                 Position position = new Position(row,col);
-                Color color = b.GetDisc(row, col).getColor();
-                this.board.add(new Disc(position, color));
+                Piece piece = b.GetPiece(position).copy();
+                this.board.put(position, piece);
             }
         }
-        this.blackDisc = b.getBlackDisc();
-        this.whiteDisc = b.getWhiteDisc();
         this.boardImage = b.getBoardImage();
-        this.emptyDisc = b.getEmptyDisc();
     }
 
     /**
@@ -53,87 +47,65 @@ public class Board {
      */
     public void initBoard() {
         for (int row = 0; row < ChessController.ROWS; row++) {
+            if(row >= 2 && row <= 5) {
+                continue;
+            }
             for (int col = 0; col < ChessController.COLUMNS; col++) {
                 Position position = new Position(row,col);
-                board.add(new Disc(position));
-                if ((row == 3 && col == 3) || (row == 4 && col == 4)) {
-                    board.get(row* ChessController.ROWS+col).setColor(Color.WHITE);
-                } else if ((row == 3 && col == 4) || (row == 4 && col == 3)) {
-                    board.get(row* ChessController.ROWS+col).setColor(Color.BLACK);
+                Piece piece = null;
+                if(row == 0) {
+                    if(col == 0 || col == 7) {
+                        piece = new Rook(position, Color.BLACK);
+                    } else if (col == 1 || col == 6) {
+                        piece = new Knight(position, Color.BLACK);
+                    } else if (col == 2 || col == 5) {
+                        piece = new Bishop(position, Color.BLACK);
+                    } else if (col == 3) {
+                        piece = new Queen(position, Color.BLACK);
+                    } else {
+                        piece = new King(position, Color.BLACK);
+                    }
+                } else if (row == 7) {
+                    if (col == 0 || col == 7) {
+                        piece = new Rook(position, Color.WHITE);
+                    } else if (col == 1 || col == 6) {
+                        piece = new Knight(position, Color.WHITE);
+                    } else if (col == 2 || col == 5) {
+                        piece = new Bishop(position, Color.WHITE);
+                    } else if (col == 3) {
+                        piece = new Queen(position, Color.WHITE);
+                    } else {
+                        piece = new King(position, Color.WHITE);
+                    }
+                } else if(row == 1) {
+                    piece = new Pawn(position, Color.BLACK);
+                } else {
+                    piece = new Pawn(position, Color.WHITE);
                 }
+                board.put(position, piece);
             }
         }
     }
 
-    /**
-     * @return The black disc image
-     */
-    public BufferedImage getBlackDisc() {
-        return blackDisc;
-    }
-
-    /**
-     * @return The white disc image.
-     */
-    public BufferedImage getWhiteDisc() {
-        return whiteDisc;
-    }
-
-    /**
-     * @return The empty disc image.
-     */
-    public BufferedImage getEmptyDisc() {
-        return emptyDisc;
-    }
 
     public BufferedImage getBoardImage() {
         return boardImage;
     }
 
     /**
-     * Counts all the white discs on the board.
-     * @return The number of white discs.
+     * Gets a piece from specified position.
+     * @param position The position of the piece.
+     * @return The specified piece.
      */
-    public int countWhiteDiscs() {
-        int sum = 0;
-        for (Disc d: board) {
-            if(d.getColor() == Color.WHITE) {
-                sum++;
-            }
-        }
-        return sum;
-    }
-
-    /**
-     * Counts all the black discs on the board.
-     * @return The number of black discs.
-     */
-    public int countBlackDiscs() {
-        ArrayList<Disc> discs = getBoard();
-        int sum = 0;
-        for (Disc d: discs) {
-            if(d.getColor() == Color.BLACK) {
-                sum++;
-            }
-        }
-        return sum;
-    }
-
-    /**
-     * Gets a disc from specified position.
-     * @param row The row where the disc is.
-     * @param col The column where the disc is.
-     * @return The specified disc.
-     */
-    public Disc GetDisc(int row, int col) {
-        return board.get(row* ChessController.ROWS+col);
+    public Piece GetPiece(Position position) {
+        return board.get(position);
     }
 
     /**
      *
      * @return The board.
      */
-    public ArrayList<Disc> getBoard() {
+    public ConcurrentHashMap<Position, Piece> getBoard() {
         return board;
     }
 
@@ -159,19 +131,6 @@ public class Board {
             string.append("\n");
         }
         return string.toString();
-    }
-
-    /**
-     * Gets the images for the disc
-     * @throws IOException if it can't get an image.
-     */
-    private void getDiscImages() throws IOException {
-        URL url = getClass().getResource("/images/black_disc.png");
-        blackDisc = ImageIO.read(url);
-        url = getClass().getResource("/images/white_disc.png");
-        whiteDisc = ImageIO.read(url);
-        emptyDisc = new BufferedImage(ChessController.TILE_WIDTH, ChessController.TILE_HEIGHT,
-                BufferedImage.TYPE_INT_ARGB);
     }
 
     private void setBoardImage() throws IOException {
