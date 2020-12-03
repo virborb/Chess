@@ -1,4 +1,4 @@
-package model.Pieces;
+package model.pieces;
 
 import model.Color;
 import model.Position;
@@ -8,9 +8,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class Rook  extends Piece{
+public class Bishop extends Piece {
 
-    public Rook(Position position, Color color) {
+    public Bishop(Position position, Color color) {
         super(position, color);
         this.setImage();
     }
@@ -22,15 +22,15 @@ public class Rook  extends Piece{
 
     @Override
     public Piece copy() {
-        return new Rook(this.getPosition(), this.getColor());
+        return new Bishop(this.getPosition(), this.getColor());
     }
 
     private void setImage() {
         URL url = null;
         if(this.getColor().equals(Color.BLACK)) {
-            url = getClass().getResource("/images/blackRook.png");
+            url = getClass().getResource("/images/blackBishop.png");
         } else {
-            url = getClass().getResource("/images/whiteRook.png");
+            url = getClass().getResource("/images/whiteBishop.png");
         }
         try {
             this.setImage(ImageIO.read(url));

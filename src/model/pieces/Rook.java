@@ -1,4 +1,4 @@
-package model.Pieces;
+package model.pieces;
 
 import model.Color;
 import model.Position;
@@ -8,34 +8,29 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class Pawn extends Piece {
-    private boolean isFirstMove;
+public class Rook  extends Piece{
 
-    public Pawn(Position position, Color color) {
+    public Rook(Position position, Color color) {
         super(position, color);
-        isFirstMove = true;
         this.setImage();
     }
 
     @Override
     public ArrayList<Position> getMoves() {
-        if(isFirstMove) {
-            return null;
-        }
         return null;
     }
 
     @Override
     public Piece copy() {
-        return new Pawn(this.getPosition(), this.getColor());
+        return new Rook(this.getPosition(), this.getColor());
     }
 
     private void setImage() {
         URL url = null;
         if(this.getColor().equals(Color.BLACK)) {
-            url = getClass().getResource("/images/blackPawn.png");
+            url = getClass().getResource("/images/blackRook.png");
         } else {
-            url = getClass().getResource("/images/whitePawn.png");
+            url = getClass().getResource("/images/whiteRook.png");
         }
         try {
             this.setImage(ImageIO.read(url));
@@ -43,5 +38,4 @@ public class Pawn extends Piece {
             e.printStackTrace();
         }
     }
-
 }
