@@ -1,8 +1,9 @@
 package model;
 
 import controller.ChessController;
+import model.pieces.Piece;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -39,17 +40,17 @@ public class AIPlayer {
      * @return the next move to make.
      */
     public Position nextMove(Board b, Color player) {
-        ArrayList<Disc> discs = r.getValidMoves(b, player);
+        Collection<Piece> pieces = r.getValidMoves(b, player);
         AtomicInteger value = new AtomicInteger(Integer.MAX_VALUE);
         AtomicReference<Position> position = new AtomicReference<>();
-        discs.parallelStream().forEach( disc -> {
+        pieces.parallelStream().forEach( piece -> {
             Board c = new Board(b);
-            r.flipDiscs(c, disc.getPosition(), player);
+            //r.flipDiscs(c, piece.getPosition(), player);
             int color = (player == Color.WHITE) ? 0 : 1;
             int tmp = negaMax(c, 0, color, Integer.MIN_VALUE, Integer.MAX_VALUE);
             value.updateAndGet( v -> {
                 if (tmp < v) {
-                    position.set(disc.getPosition());
+                    position.set(piece.getPosition());
                     return tmp;
                 }
                 return v;
@@ -75,10 +76,10 @@ public class AIPlayer {
             return SIGN[color]*analysis(b);
         }
         int max = Integer.MIN_VALUE;
-        ArrayList<Disc> legalMoves = r.getValidMoves(b, player);
-        for (Disc move: legalMoves) {
+        Collection<Piece>  legalMoves = r.getValidMoves(b, player);
+        for (Piece move: legalMoves) {
             Board c = new Board(b);
-            r.flipDiscs(c, move.getPosition(), player);
+            //r.flipDiscs(c, move.getPosition(), player);
             int x = - negaMax(c, depth+1, 1-color, -beta, -alpha);
             if (x > max) max = x;
             if (x > alpha) alpha = x;
@@ -93,20 +94,20 @@ public class AIPlayer {
      * @return the value of the board.
      */
     private int analysis(Board board) {
-        ArrayList<Disc> discs = board.getBoard();
-        int value = discs.parallelStream().filter(e -> e.getColor() != Color.EMPTY).mapToInt(this::checkScore).sum();
+        Collection<Piece> pieces = board.getBoard().values();
+        int value = pieces.parallelStream().filter(e -> e.getColor() != Color.EMPTY).mapToInt(this::checkScore).sum();
         value = value + mobility(board);
         return value;
     }
 
     /**
-     * Gets the score of the disc's position
-     * @param disc the position to check
+     * Gets the score of the piece's position
+     * @param piece the position to check
      * @return the score
      */
-    private int checkScore(Disc disc) {
-        int color = (disc.getColor() == Color.BLACK) ? 0 : 1;
-        Position p = disc.getPosition();
+    private int checkScore(Piece piece) {
+        int color = (piece.getColor() == Color.BLACK) ? 0 : 1;
+        Position p = piece.getPosition();
         int sum = POINTS[p.getRow()* ChessController.ROWS+p.getCol()];
         return SIGN[color]*sum;
     }
