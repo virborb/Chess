@@ -1,7 +1,8 @@
-package model.pieces;
+package test.pieces;
 
 import model.Board;
 import model.Position;
+import model.pieces.Piece;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

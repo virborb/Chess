@@ -20,17 +20,7 @@ public class King extends Piece {
     public ArrayList<Position> getMoves() {
         ArrayList<Position> positions = new ArrayList<>();
         Position start = this.getPosition();
-        int startRow = start.getRow();
-        int startCol = start.getCol();
-        Position[] directions = new Position[8];
-        directions[0] = new Position(startRow-1,startCol+1);
-        directions[1] = new Position(startRow+1,startCol+1);
-        directions[2] = new Position(startRow-1,startCol-1);
-        directions[3] = new Position(startRow+1,startCol);
-        directions[4] = new Position(startRow-1,startCol);
-        directions[5] = new Position(startRow,startCol-1);
-        directions[6] = new Position(startRow,startCol+1);
-        directions[7] = new Position(startRow+1,startCol-1);
+        Position[] directions = this.getDirections(start.getRow(), start.getCol());
         for (Position direction:directions) {
             int row = direction.getRow();
             int col = direction.getCol();
@@ -44,6 +34,19 @@ public class King extends Piece {
     @Override
     public Piece copy() {
         return new King(this.getPosition(), this.getColor());
+    }
+
+    private Position[] getDirections(int startRow, int startCol) {
+        Position[] directions = new Position[8];
+        directions[0] = new Position(startRow-1,startCol+1);
+        directions[1] = new Position(startRow+1,startCol+1);
+        directions[2] = new Position(startRow-1,startCol-1);
+        directions[3] = new Position(startRow+1,startCol);
+        directions[4] = new Position(startRow-1,startCol);
+        directions[5] = new Position(startRow,startCol-1);
+        directions[6] = new Position(startRow,startCol+1);
+        directions[7] = new Position(startRow+1,startCol-1);
+        return directions;
     }
 
     private void setImage() {
