@@ -1,8 +1,10 @@
 package model;
 
 import controller.ChessController;
+import model.pieces.Piece;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Checks if a player has legal moves and also makes them.
@@ -32,10 +34,10 @@ public class Rules {
      * @param player The player to check for move.
      * @return A list with all possible moves.
      */
-    public ArrayList<Disc> getValidMoves(Board board, Color player) {
-        ArrayList<Disc> discs = (ArrayList<Disc>) board.getBoard().clone();
-        discs.removeIf(disc -> !isLegalMove(board, disc, player));
-        return discs;
+    public Collection<Piece> getValidMoves(Board board, Color player) {
+        Collection<Piece>  pieces = board.getBoard().values();
+        pieces.removeIf(piece -> !isLegalMove(board, piece, player));
+        return pieces;
     }
 
     /**
@@ -60,19 +62,19 @@ public class Rules {
     /**
      * Tests if a move is legal.
      * @param board The board to test on.
-     * @param disc The disc to test
+     * @param piece The piece to test
      * @param player  The player to make the move.
      * @return True if move is legal otherwise false.
      */
-    public boolean isLegalMove(Board board, Disc disc, Color player) {
-        if(!disc.getColor().equals(Color.EMPTY)) {
+    public boolean isLegalMove(Board board, Piece piece, Color player) {
+        if(!piece.getColor().equals(Color.EMPTY)) {
             return false;
         }
-        Position start = disc.getPosition();
+        Position start = piece.getPosition();
         for (Position dir : directions) {
-            if (checkDirection(board, start, dir, player)) {
+            /*if (checkDirection(board, start, dir, player)) {
                 return true;
-            }
+            }*/
         }
         return false;
     }
@@ -83,12 +85,12 @@ public class Rules {
      * @param position
      * @param player
      */
-    public void flipDiscs(Board board, Position position, Color player) {
-        board.GetDisc(position.getRow(), position.getCol()).setColor(player);
+    /*public void flipDiscs(Board board, Position position, Color player) {
+        board.GetPiece(position).setColor(player);
         for (Position dir : directions) {
             flipDiscDirection(board, position, dir, player);
         }
-    }
+    }*/
 
     /**
      * Flips all disc in one direction on the board if it's possible.
@@ -97,7 +99,7 @@ public class Rules {
      * @param direction The direction to flip the discs.
      * @param player The player to check with.
      */
-    private void flipDiscDirection(Board board, Position start, Position direction, Color player) {
+    /*private void flipDiscDirection(Board board, Position start, Position direction, Color player) {
         int sumRow = start.getRow() + direction.getRow();
         int sumCol = start.getCol() + direction.getCol();
         boolean opponentDisc = false;
@@ -117,7 +119,7 @@ public class Rules {
                 return;
             }
         }
-    }
+    }*/
 
     /**
      * Check in one direction if it is a legal move.
@@ -127,7 +129,7 @@ public class Rules {
      * @param player The player to check with.
      * @return true if move is legal otherwise false.
      */
-    private boolean checkDirection(Board board, Position start, Position direction, Color player) {
+    /*private boolean checkDirection(Board board, Position start, Position direction, Color player) {
         int sumRow = start.getRow() + direction.getRow();
         int sumCol = start.getCol() + direction.getCol();
         boolean opponentDisc = false;
@@ -141,5 +143,5 @@ public class Rules {
             } else return player == deltaColor && opponentDisc;
         }
         return false;
-    }
+    }*/
 }
