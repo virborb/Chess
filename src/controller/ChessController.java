@@ -1,11 +1,13 @@
 package controller;
 
 import model.*;
+import model.pieces.Piece;
 import view.ChessView;
 import view.MenuBar;
 
 import javax.swing.*;
 import java.awt.image.BufferedImage;
+import java.util.Collection;
 
 /**
  * The controller class which handles the communication between the model and view.
@@ -64,7 +66,7 @@ public class ChessController {
         menu.getNewGame().addActionListener(e -> {
             board = new Board();
             board.initBoard();
-            flipTiles();
+            setTileImages();
         });
 
         menu.getQuit().addActionListener(e -> {
@@ -77,12 +79,11 @@ public class ChessController {
      */
     public void addGameScreenListeners() {
         JButton[][] tiles = v.getGameScreen().getTiles();
-        flipTiles();
-        for (int i = 0; i < ROWS; i++) {
-            for (int j = 0; j < COLUMNS; j++) {
-                int finalI = i;
-                int finalJ = j;
-                tiles[i][j].addActionListener(e -> makeMove(board.GetDisc(finalI, finalJ)));
+        setTileImages();
+        for (int row = 0; row < ROWS; row++) {
+            for (int col = 0; col < COLUMNS; col++) {
+                Position position = new Position(row, col);
+                tiles[row][col].addActionListener(e -> makeMove(board.GetPiece(position)));
             }
         }
     }
@@ -90,20 +91,20 @@ public class ChessController {
     /**
      * Make a move on board if it is a legal and check who
      * is next to make a move or if the game is over.
-     * @param disc The disc where the move is made.
+     * @param piece The disc where the move is made.
      */
-    private void makeMove(Disc disc) {
-        if (rules.isLegalMove(board, disc, Color.BLACK)) {
-            rules.flipDiscs(board, disc.getPosition(), Color.BLACK);
+    private void makeMove(Piece piece) {
+        if (rules.isLegalMove(board, piece, Color.BLACK)) {
+            //rules.flipDiscs(board, piece.getPosition(), Color.BLACK);
             do {
                 if (rules.hasLegalMoves(board, Color.WHITE)) {
                     Position position = ai.nextMove(board, Color.WHITE);
-                    rules.flipDiscs(board, position, Color.WHITE);
+                    //rules.flipDiscs(board, position, Color.WHITE);
                 } else {
                     break;
                 }
             } while (!rules.hasLegalMoves(board, Color.BLACK));
-            flipTiles();
+            setTileImages();
             if (rules.isGameOver(board)) {
                 gameOver();
             }
@@ -115,8 +116,8 @@ public class ChessController {
      * shows which player won the game.
      */
     private void gameOver() {
-        int black = board.countBlackDiscs();
-        int white = board.countWhiteDiscs();
+        int black = 0;
+        int white = 0;
         if(black > white) {
             v.showMessage("Black Won with " + black +
                     " against " + white);
@@ -129,20 +130,14 @@ public class ChessController {
     }
 
     /**
-     * Flips all tiles on the gui board.
+     * Sets all tile images on the gui board.
      */
-    private void flipTiles() {
-        for (int i = 0; i < ROWS; i++) {
-            for (int j = 0; j < COLUMNS; j++) {
-                Color color = board.GetDisc(i,j).getColor();
-                if(Color.BLACK == color) {
-                    v.getGameScreen().changeTileBackground(i, j, board.getBlackDisc());
-                } else if(Color.WHITE == color) {
-                    v.getGameScreen().changeTileBackground(i, j, board.getWhiteDisc());
-                } else {
-                    v.getGameScreen().changeTileBackground(i, j, board.getEmptyDisc());
-                }
-            }
-        }
+    private void setTileImages() {
+        Collection<Piece> pieces = board.getBoard().values();
+        pieces.forEach(piece -> {
+            int row = piece.getPosition().getRow();
+            int col = piece.getPosition().getCol();
+            v.getGameScreen().changeTileBackground(row, col, piece.getImage());
+        });
     }
 }
