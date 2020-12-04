@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class Queen  extends Piece{
+public class Queen  extends Piece {
 
     public Queen(Position position, Color color) {
         super(position, color);
@@ -17,7 +17,11 @@ public class Queen  extends Piece{
 
     @Override
     public ArrayList<Position> getMoves() {
-        return null;
+        Rook rook = new Rook(this.getPosition(), this.getColor());
+        Bishop bishop = new Bishop(this.getPosition(), this.getColor());
+        ArrayList<Position> positions = rook.getMoves();
+        positions.addAll(bishop.getMoves());
+        return positions;
     }
 
     @Override

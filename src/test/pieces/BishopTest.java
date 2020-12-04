@@ -1,5 +1,6 @@
 package test.pieces;
 
+import controller.ChessController;
 import model.Board;
 import model.Position;
 import model.pieces.Piece;
@@ -7,11 +8,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class KingTest {
+class BishopTest {
     private Board board;
 
     @BeforeEach
@@ -21,15 +21,15 @@ class KingTest {
     }
 
     @Test
-    void testGetMoves() {
-        Piece piece = board.GetPiece(new Position(0, 4));
+    void getMoves() {
+        Piece piece = board.GetPiece(new Position(0, 2));
         ArrayList<Position> positions = piece.getMoves();
         ArrayList<Position> expected = new ArrayList<>();
-        expected.add(new Position(0, 3));
-        expected.add(new Position(0, 5));
-        expected.add(new Position(1, 3));
-        expected.add(new Position(1, 4));
-        expected.add(new Position(1, 5));
+        for (int i = 3; i < ChessController.ROWS; i++) {
+            expected.add(new Position(i-2, i));
+        }
+        expected.add(new Position(1, 1));
+        expected.add(new Position(2, 0));
         assertTrue(positions.containsAll(expected) && positions.size() == expected.size());
     }
 }
