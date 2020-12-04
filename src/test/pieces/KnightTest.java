@@ -3,7 +3,6 @@ package test.pieces;
 import model.Board;
 import model.Position;
 import model.pieces.Piece;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,12 +21,13 @@ class KnightTest {
 
     @Test
     void getMoves() {
-        Piece piece = board.GetPiece(new Position(0, 1));
-        ArrayList<Position> positions = piece.getMoves();
+        Piece knight = board.getPiece(new Position(0, 1));
+        Piece pawn = board.getPiece(new Position(6, 1));
+        board.movePiece(pawn, new Position(2, 0));
+        ArrayList<Position> positions = knight.getMoves(board);
         ArrayList<Position> expected = new ArrayList<>();
         expected.add(new Position(2, 0));
         expected.add(new Position(2, 2));
-        expected.add(new Position(1, 3));
         assertTrue(positions.containsAll(expected) && positions.size() == expected.size());
     }
 }

@@ -22,12 +22,15 @@ class RookTest {
 
     @Test
     void TestGetMoves() {
-        Piece piece = board.GetPiece(new Position(0, 0));
-        ArrayList<Position> positions = piece.getMoves();
+        Piece piece = board.getPiece(new Position(0, 0));
+        board.movePiece(piece, new Position(2, 0));
+        ArrayList<Position> positions = piece.getMoves(board);
         ArrayList<Position> expected = new ArrayList<>();
         for (int i = 1; i < ChessController.ROWS; i++) {
+            expected.add(new Position(2,  i));
+        }
+        for (int i = 3; i < ChessController.ROWS-1; i++) {
             expected.add(new Position(i, 0));
-            expected.add(new Position(0,  i));
         }
         assertTrue(positions.containsAll(expected) && positions.size() == expected.size());
     }

@@ -1,6 +1,7 @@
 package model.pieces;
 
 import controller.ChessController;
+import model.Board;
 import model.Color;
 import model.Position;
 
@@ -17,7 +18,7 @@ public class Knight extends Piece {
     }
 
     @Override
-    public ArrayList<Position> getMoves() {
+    public ArrayList<Position> getMoves(Board board) {
         ArrayList<Position> positions = new ArrayList<>();
         Position start = this.getPosition();
         Position[] directions = this.getDirections(start.getRow(), start.getCol());
@@ -25,6 +26,12 @@ public class Knight extends Piece {
             int row = direction.getRow();
             int col = direction.getCol();
             if (row >= 0 && row < ChessController.ROWS && col >= 0 && col < ChessController.COLUMNS) {
+                if (board.getPiece(direction) != null) {
+                    if(board.getPiece(direction).getColor() != this.getColor()) {
+                        positions.add(direction);
+                    }
+                    continue;
+                }
                 positions.add(direction);
             }
         }

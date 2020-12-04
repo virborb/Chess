@@ -1,6 +1,7 @@
 package model.pieces;
 
 import controller.ChessController;
+import model.Board;
 import model.Color;
 import model.Position;
 
@@ -17,7 +18,7 @@ public class Bishop extends Piece {
     }
 
     @Override
-    public ArrayList<Position> getMoves() {
+    public ArrayList<Position> getMoves(Board board) {
         ArrayList<Position> positions = new ArrayList<>();
         Position start = this.getPosition();
         Position[] directions = new Position[4];
@@ -28,9 +29,15 @@ public class Bishop extends Piece {
         for (Position direction : directions) {
             int sumRow = start.getRow() + direction.getRow();
             int sumCol = start.getCol() + direction.getCol();
-            boolean opponentDisc = false;
             while(sumRow >= 0 && sumRow < ChessController.ROWS && sumCol >= 0 && sumCol < ChessController.COLUMNS) {
-                positions.add(new Position(sumRow, sumCol));
+                Position position = new Position(sumRow, sumCol);
+                if (board.getPiece(position) != null) {
+                    if(board.getPiece(position).getColor() != this.getColor()) {
+                        positions.add(position);
+                    }
+                    break;
+                }
+                positions.add(position);
                 sumRow = sumRow + direction.getRow();
                 sumCol = sumCol + direction.getCol();
             }

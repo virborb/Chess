@@ -95,7 +95,7 @@ public class Board {
     /**
      * Gets a piece from specified position.
      * @param position The position of the piece.
-     * @return The specified piece.
+     * @return The specified piece or null if empty position.
      */
     public Piece GetPiece(Position position) {
         return board.get(position);

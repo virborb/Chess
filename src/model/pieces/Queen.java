@@ -1,5 +1,6 @@
 package model.pieces;
 
+import model.Board;
 import model.Color;
 import model.Position;
 
@@ -16,11 +17,11 @@ public class Queen  extends Piece {
     }
 
     @Override
-    public ArrayList<Position> getMoves() {
+    public ArrayList<Position> getMoves(Board board) {
         Rook rook = new Rook(this.getPosition(), this.getColor());
         Bishop bishop = new Bishop(this.getPosition(), this.getColor());
-        ArrayList<Position> positions = rook.getMoves();
-        positions.addAll(bishop.getMoves());
+        ArrayList<Position> positions = rook.getMoves(board);
+        positions.addAll(bishop.getMoves(board));
         return positions;
     }
 

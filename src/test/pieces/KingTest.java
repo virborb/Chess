@@ -7,7 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,14 +21,17 @@ class KingTest {
 
     @Test
     void testGetMoves() {
-        Piece piece = board.GetPiece(new Position(0, 4));
-        ArrayList<Position> positions = piece.getMoves();
+        Piece king = board.getPiece(new Position(0, 4));
+        Piece pawn = board.getPiece(new Position(6, 4));
+        board.movePiece(king, new Position(2, 4));
+        board.movePiece(pawn, new Position(3, 4));
+        ArrayList<Position> positions = king.getMoves(board);
         ArrayList<Position> expected = new ArrayList<>();
-        expected.add(new Position(0, 3));
-        expected.add(new Position(0, 5));
-        expected.add(new Position(1, 3));
-        expected.add(new Position(1, 4));
-        expected.add(new Position(1, 5));
+        expected.add(new Position(2, 3));
+        expected.add(new Position(2, 5));
+        expected.add(new Position(3, 3));
+        expected.add(new Position(3, 4));
+        expected.add(new Position(3, 5));
         assertTrue(positions.containsAll(expected) && positions.size() == expected.size());
     }
 }

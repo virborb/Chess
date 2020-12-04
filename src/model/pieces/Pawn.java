@@ -1,6 +1,7 @@
 package model.pieces;
 
 import controller.ChessController;
+import model.Board;
 import model.Color;
 import model.Position;
 
@@ -17,7 +18,7 @@ public class Pawn extends Piece {
     }
 
     @Override
-    public ArrayList<Position> getMoves() {
+    public ArrayList<Position> getMoves(Board board) {
         ArrayList<Position> positions = new ArrayList<>();
         Position start = this.getPosition();
         ArrayList<Position> directions = this.getDirections(start.getRow(), start.getCol(), this.getColor());

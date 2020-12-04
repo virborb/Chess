@@ -21,8 +21,8 @@ class PawnTest {
 
     @Test
     void getMoves() {
-        Piece piece = board.GetPiece(new Position(1, 1));
-        ArrayList<Position> positions = piece.getMoves();
+        Piece piece = board.getPiece(new Position(1, 1));
+        ArrayList<Position> positions = piece.getMoves(board);
         ArrayList<Position> expected = new ArrayList<>();
         expected.add(new Position(2, 0));
         expected.add(new Position(2, 2));

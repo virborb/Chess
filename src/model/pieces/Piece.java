@@ -1,5 +1,6 @@
 package model.pieces;
 
+import model.Board;
 import model.Color;
 import model.Position;
 import java.awt.image.BufferedImage;
@@ -16,7 +17,7 @@ public abstract class Piece {
     }
 
 
-    public abstract ArrayList<Position> getMoves();
+    public abstract ArrayList<Position> getMoves(Board board);
 
     public abstract Piece copy();
 
@@ -30,6 +31,10 @@ public abstract class Piece {
 
     public BufferedImage getImage() {
         return image;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
     protected void setImage(BufferedImage image) {
