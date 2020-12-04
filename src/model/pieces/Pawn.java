@@ -1,5 +1,6 @@
 package model.pieces;
 
+import controller.ChessController;
 import model.Color;
 import model.Position;
 
@@ -9,25 +10,50 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class Pawn extends Piece {
-    private boolean isFirstMove;
 
     public Pawn(Position position, Color color) {
         super(position, color);
-        isFirstMove = true;
         this.setImage();
     }
 
     @Override
     public ArrayList<Position> getMoves() {
-        if(isFirstMove) {
-            return null;
+        ArrayList<Position> positions = new ArrayList<>();
+        Position start = this.getPosition();
+        ArrayList<Position> directions = this.getDirections(start.getRow(), start.getCol(), this.getColor());
+        for (Position direction:directions) {
+            int row = direction.getRow();
+            int col = direction.getCol();
+            if (row >= 0 && row < ChessController.ROWS && col >= 0 && col < ChessController.COLUMNS) {
+                positions.add(direction);
+            }
         }
-        return null;
+        return positions;
     }
 
     @Override
     public Piece copy() {
         return new Pawn(this.getPosition(), this.getColor());
+    }
+
+    private ArrayList<Position> getDirections(int startRow, int startCol, Color color) {
+        ArrayList<Position> directions = new ArrayList<>();
+        if (color == Color.BLACK) {
+            directions.add(new Position(startRow+1,startCol+1));
+            directions.add(new Position(startRow+1,startCol-1));
+            directions.add(new Position(startRow+1,startCol));
+            if(this.getPosition().getRow() == 1) {
+                directions.add(new Position(startRow+2,startCol));
+            }
+        } else {
+            directions.add(new Position(startRow-1,startCol+1));
+            directions.add(new Position(startRow-1,startCol-1));
+            directions.add(new Position(startRow-1,startCol));
+            if(this.getPosition().getRow() == 6) {
+                directions.add(new Position(startRow-2,startCol));
+            }
+        }
+        return directions;
     }
 
     private void setImage() {
