@@ -83,7 +83,7 @@ public class ChessController {
         for (int row = 0; row < ROWS; row++) {
             for (int col = 0; col < COLUMNS; col++) {
                 Position position = new Position(row, col);
-                tiles[row][col].addActionListener(e -> makeMove(board.GetPiece(position)));
+                tiles[row][col].addActionListener(e -> makeMove(board.getPiece(position)));
             }
         }
     }

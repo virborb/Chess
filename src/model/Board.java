@@ -34,7 +34,7 @@ public class Board {
         for (int row = 0; row < ChessController.ROWS; row++) {
             for (int col = 0; col < ChessController.COLUMNS; col++) {
                 Position position = new Position(row,col);
-                Piece piece = b.GetPiece(position).copy();
+                Piece piece = b.getPiece(position).copy();
                 this.board.put(position, piece);
             }
         }
@@ -97,8 +97,14 @@ public class Board {
      * @param position The position of the piece.
      * @return The specified piece or null if empty position.
      */
-    public Piece GetPiece(Position position) {
+    public Piece getPiece(Position position) {
         return board.get(position);
+    }
+
+    public void movePiece(Piece piece, Position moveTo) {
+        board.remove(piece.getPosition());
+        piece.setPosition(moveTo);
+        board.put(moveTo, piece);
     }
 
     /**
@@ -107,30 +113,6 @@ public class Board {
      */
     public ConcurrentHashMap<Position, Piece> getBoard() {
         return board;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder string = new StringBuilder();
-        for (int row = 0; row < ChessController.ROWS; row++) {
-            for (int col = 0; col < ChessController.COLUMNS; col++) {
-                String tmp = "b";
-                switch (board.get(row* ChessController.ROWS+col).getColor()) {
-                    case BLACK:
-                        tmp = "B";
-                        break;
-                    case WHITE:
-                        tmp = "W";
-                        break;
-                    case EMPTY:
-                        tmp = "E";
-                        break;
-                }
-                string.append(tmp);
-            }
-            string.append("\n");
-        }
-        return string.toString();
     }
 
     private void setBoardImage() throws IOException {
