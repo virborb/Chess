@@ -31,13 +31,9 @@ public class Board {
      */
     public Board(Board b) {
         this.board = new ConcurrentHashMap<>();
-        for (int row = 0; row < ChessController.ROWS; row++) {
-            for (int col = 0; col < ChessController.COLUMNS; col++) {
-                Position position = new Position(row,col);
-                Piece piece = b.getPiece(position).copy();
-                this.board.put(position, piece);
-            }
-        }
+        b.getBoard().forEach((position, piece) -> {
+            this.board.put(position, piece.copy());
+        });
         this.boardImage = b.getBoardImage();
     }
 
