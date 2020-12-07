@@ -16,6 +16,10 @@ public class Queen  extends Piece {
         this.setImage();
     }
 
+    private Queen(Queen queen) {
+        super(queen);
+    }
+
     @Override
     public ArrayList<Position> getMoves(Board board) {
         Rook rook = new Rook(this.getPosition(), this.getColor());
@@ -27,7 +31,7 @@ public class Queen  extends Piece {
 
     @Override
     public Piece copy() {
-        return new Queen(this.getPosition(), this.getColor());
+        return new Queen(this);
     }
 
     private void setImage() {

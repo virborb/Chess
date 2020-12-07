@@ -16,6 +16,11 @@ public abstract class Piece {
         this.color = color;
     }
 
+    public Piece(Piece piece) {
+        this.position = piece.position;
+        this.color = piece.color;
+        this.image = piece.image;
+    }
 
     public abstract ArrayList<Position> getMoves(Board board);
 

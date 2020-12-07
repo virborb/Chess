@@ -17,6 +17,10 @@ public class Rook  extends Piece{
         this.setImage();
     }
 
+    private Rook(Rook rook) {
+        super(rook);
+    }
+
     @Override
     public ArrayList<Position> getMoves(Board board) {
         ArrayList<Position> positions = new ArrayList<>();
@@ -47,7 +51,7 @@ public class Rook  extends Piece{
 
     @Override
     public Piece copy() {
-        return new Rook(this.getPosition(), this.getColor());
+        return new Rook(this);
     }
 
     private void setImage() {

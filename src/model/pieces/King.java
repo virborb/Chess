@@ -17,6 +17,10 @@ public class King extends Piece {
         this.setImage();
     }
 
+    private King(King king) {
+        super(king);
+    }
+
     @Override
     public ArrayList<Position> getMoves(Board board) {
         ArrayList<Position> positions = new ArrayList<>();
@@ -40,7 +44,7 @@ public class King extends Piece {
 
     @Override
     public Piece copy() {
-        return new King(this.getPosition(), this.getColor());
+        return new King(this);
     }
 
     private Position[] getDirections(int startRow, int startCol) {

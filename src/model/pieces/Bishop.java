@@ -17,6 +17,10 @@ public class Bishop extends Piece {
         this.setImage();
     }
 
+    private Bishop(Bishop bishop) {
+        super(bishop);
+    }
+
     @Override
     public ArrayList<Position> getMoves(Board board) {
         ArrayList<Position> positions = new ArrayList<>();
@@ -47,7 +51,7 @@ public class Bishop extends Piece {
 
     @Override
     public Piece copy() {
-        return new Bishop(this.getPosition(), this.getColor());
+        return new Bishop(this);
     }
 
     private void setImage() {

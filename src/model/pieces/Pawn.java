@@ -17,6 +17,10 @@ public class Pawn extends Piece {
         this.setImage();
     }
 
+    private Pawn(Pawn pawn) {
+        super(pawn);
+    }
+
     @Override
     public ArrayList<Position> getMoves(Board board) {
         ArrayList<Position> positions = new ArrayList<>();
@@ -41,7 +45,7 @@ public class Pawn extends Piece {
 
     @Override
     public Piece copy() {
-        return new Pawn(this.getPosition(), this.getColor());
+        return new Pawn(this);
     }
 
     private ArrayList<Position> getDirections(int startRow, int startCol, Color color) {
