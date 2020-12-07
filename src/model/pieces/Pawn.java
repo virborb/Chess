@@ -26,7 +26,14 @@ public class Pawn extends Piece {
             int row = direction.getRow();
             int col = direction.getCol();
             if (row >= 0 && row < ChessController.ROWS && col >= 0 && col < ChessController.COLUMNS) {
-                positions.add(direction);
+                if (board.getPiece(direction) != null) {
+                    if(board.getPiece(direction).getColor() != this.getColor() && start.getCol() != col) {
+                        positions.add(direction);
+                    }
+                    continue;
+                } else if (start.getCol() == col){
+                    positions.add(direction);
+                }
             }
         }
         return positions;
@@ -43,14 +50,14 @@ public class Pawn extends Piece {
             directions.add(new Position(startRow+1,startCol+1));
             directions.add(new Position(startRow+1,startCol-1));
             directions.add(new Position(startRow+1,startCol));
-            if(this.getPosition().getRow() == 1) {
+            if(startRow == 1) {
                 directions.add(new Position(startRow+2,startCol));
             }
         } else {
             directions.add(new Position(startRow-1,startCol+1));
             directions.add(new Position(startRow-1,startCol-1));
             directions.add(new Position(startRow-1,startCol));
-            if(this.getPosition().getRow() == 6) {
+            if(startRow == 6) {
                 directions.add(new Position(startRow-2,startCol));
             }
         }

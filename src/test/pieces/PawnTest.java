@@ -21,13 +21,18 @@ class PawnTest {
 
     @Test
     void getMoves() {
-        Piece piece = board.getPiece(new Position(1, 1));
-        ArrayList<Position> positions = piece.getMoves(board);
+        Piece pawn = board.getPiece(new Position(1, 1));
+        Piece opponentPawn = board.getPiece(new Position(6, 2));
+        board.movePiece(opponentPawn, new Position(2, 2));
+
+        Piece ownPawn = board.getPiece(new Position(1, 4));
+        board.movePiece(ownPawn, new Position(3, 1));
+        ArrayList<Position> positions = pawn.getMoves(board);
         ArrayList<Position> expected = new ArrayList<>();
-        expected.add(new Position(2, 0));
+
         expected.add(new Position(2, 2));
         expected.add(new Position(2, 1));
-        expected.add(new Position(3, 1));
+
         assertTrue(positions.containsAll(expected) && positions.size() == expected.size());
     }
 }
