@@ -24,8 +24,8 @@ public class GameScreen extends JPanel {
         gridLayout.setVgap(3);
         this.setLayout(gridLayout);
         tiles = new ImageButton[8][8];
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
+        for (int i = 0; i < ChessController.ROWS; i++) {
+            for (int j = 0; j < ChessController.COLUMNS; j++) {
                 tiles[i][j] = new ImageButton(
                         ChessController.TILE_WIDTH, ChessController.TILE_HEIGHT);
                 this.add(tiles[i][j]);
