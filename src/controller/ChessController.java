@@ -6,8 +6,13 @@ import view.ChessView;
 import view.MenuBar;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.util.Collection;
+import java.util.Map;
 
 /**
  * The controller class which handles the communication between the model and view.
@@ -81,9 +86,31 @@ public class ChessController {
         JButton[][] tiles = v.getGameScreen().getTiles();
         setTileImages();
         for (int row = 0; row < ROWS; row++) {
+            if (row >= 2 && row <= 5) {
+                continue;
+            }
             for (int col = 0; col < COLUMNS; col++) {
                 Position position = new Position(row, col);
-                tiles[row][col].addActionListener(e -> makeMove(board.getPiece(position)));
+                MouseAction mouseAction = new MouseAction(tiles[row][col]) {
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                        JComponent comp = this.getComp();
+                        int newX = comp.getX() + e.getX();
+                        int newY = comp.getY() + e.getY();
+                        int row = newY/TILE_HEIGHT;
+                        int col = newX/TILE_WIDTH;
+                        System.out.println("row: " + this.getMyY()/TILE_HEIGHT + " col: " + this.getMyX()/TILE_WIDTH);
+                        Position oldPosition = new Position(this.getMyY()/TILE_HEIGHT, this.getMyX()/TILE_WIDTH);
+                        Position moveTo = new Position(row, col);
+                        if (makeMove(oldPosition, moveTo)) {
+                            comp.setLocation(newX-(newX%TILE_WIDTH-3), newY-(newY%TILE_HEIGHT-3));
+                        } else {
+                            comp.setLocation(this.getMyX(), this.getMyY());
+                        }
+                    }
+                };
+                tiles[row][col].addMouseMotionListener(mouseAction);
+                tiles[row][col].addMouseListener(mouseAction);
             }
         }
     }
@@ -91,24 +118,24 @@ public class ChessController {
     /**
      * Make a move on board if it is a legal and check who
      * is next to make a move or if the game is over.
-     * @param piece The disc where the move is made.
+     * @param oldPosition
+     * @param moveTo
      */
-    private void makeMove(Piece piece) {
-        if (rules.isLegalMove(board, piece, Color.BLACK)) {
+    public boolean makeMove(Position oldPosition, Position moveTo) {
+        Piece piece = board.getPiece(oldPosition);
+        if (rules.isLegalMove(board, piece, Color.WHITE, moveTo)) {
+            //System.out.println("test");
+            board.movePiece(piece, moveTo);
             //rules.flipDiscs(board, piece.getPosition(), Color.BLACK);
-            do {
-                if (rules.hasLegalMoves(board, Color.WHITE)) {
-                    Position position = ai.nextMove(board, Color.WHITE);
-                    //rules.flipDiscs(board, position, Color.WHITE);
-                } else {
-                    break;
-                }
-            } while (!rules.hasLegalMoves(board, Color.BLACK));
-            setTileImages();
-            if (rules.isGameOver(board)) {
+            Map.Entry<Piece, Position> entry = ai.nextMove(board, Color.BLACK);
+           //board.movePiece(entry.getKey(), entry.getValue());
+            //setTileImages();
+            if (rules.isGameOver(board, Color.WHITE)) {
                 gameOver();
             }
+            return true;
         }
+        return false;
     }
 
     /**
