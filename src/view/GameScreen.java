@@ -26,6 +26,13 @@ public class GameScreen extends JPanel {
         tiles = new ImageButton[8][8];
         for (int i = 0; i < ChessController.ROWS; i++) {
             for (int j = 0; j < ChessController.COLUMNS; j++) {
+                if(i >= 2 && i <= 5) {
+                    tiles[i][j] = null;
+                    JPanel panel = new JPanel();
+                    panel.setOpaque(false);
+                    this.add(panel);
+                    continue;
+                }
                 tiles[i][j] = new ImageButton(
                         ChessController.TILE_WIDTH, ChessController.TILE_HEIGHT);
                 this.add(tiles[i][j]);
