@@ -3,6 +3,8 @@ package model.pieces;
 import model.Board;
 import model.Color;
 import model.Position;
+
+import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
@@ -10,6 +12,7 @@ public abstract class Piece {
     private Position position;
     private Color color;
     private BufferedImage image;
+    private JComponent comp;
 
     public Piece(Position position, Color color) {
         this.position = position;
@@ -36,6 +39,14 @@ public abstract class Piece {
 
     public BufferedImage getImage() {
         return image;
+    }
+
+    public JComponent getComp() {
+        return comp;
+    }
+
+    public void setComp(JComponent comp) {
+        this.comp = comp;
     }
 
     public void setPosition(Position position) {
