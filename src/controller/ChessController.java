@@ -85,7 +85,7 @@ public class ChessController {
      * Adds action listeners to all tiles on the board.
      */
     public void addGameScreenListeners() {
-        JButton[][] tiles = v.getGameScreen().getTiles();
+        JPanel[][] tiles = v.getGameScreen().getTiles();
         setTileImages();
         for (int row = 0; row < ROWS; row++) {
             if (row >= 2 && row <= 5) {

@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
 public class GameScreen extends JPanel {
     private BufferedImage bg;
     private GridLayout gridLayout;
-    private ImageButton[][] tiles;
+    private ImagePanel[][] tiles;
 
     /**
      * Constructs the gameScreen with a grid layout with all button and creates
@@ -23,7 +23,7 @@ public class GameScreen extends JPanel {
         gridLayout.setHgap(3);
         gridLayout.setVgap(3);
         this.setLayout(gridLayout);
-        tiles = new ImageButton[8][8];
+        tiles = new ImagePanel[8][8];
         for (int i = 0; i < ChessController.ROWS; i++) {
             for (int j = 0; j < ChessController.COLUMNS; j++) {
                 if(i >= 2 && i <= 5) {
@@ -33,7 +33,7 @@ public class GameScreen extends JPanel {
                     this.add(panel);
                     continue;
                 }
-                tiles[i][j] = new ImageButton(
+                tiles[i][j] = new ImagePanel(
                         ChessController.TILE_WIDTH, ChessController.TILE_HEIGHT);
                 this.add(tiles[i][j]);
             }
@@ -61,7 +61,7 @@ public class GameScreen extends JPanel {
     /**
      * @return An array with all the buttons
      */
-    public JButton[][] getTiles() {
+    public JPanel[][] getTiles() {
         return tiles;
     }
 

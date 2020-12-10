@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 /**
  * A button with an image.
  */
-public class ImageButton extends JButton {
+public class ImagePanel extends JPanel {
     private static final long serialVersionUID = 1L;
     private BufferedImage bg;
 
@@ -16,10 +16,8 @@ public class ImageButton extends JButton {
      * @param width
      * @param height
      */
-    public ImageButton(int width, int height){
+    public ImagePanel(int width, int height){
         super();
-        this.setContentAreaFilled(false);
-        this.setBorderPainted(false);
         this.setOpaque(false);
         bg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
     }
