@@ -34,9 +34,10 @@ public class Pawn extends Piece {
                     if(board.getPiece(direction).getColor() != this.getColor() && start.getCol() != col) {
                         positions.add(direction);
                     }
-                    continue;
                 } else if (start.getCol() == col){
-                    positions.add(direction);
+                    if(board.getPiece(directions.get(2)) == null) {
+                        positions.add(direction);
+                    }
                 }
             }
         }
