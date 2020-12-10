@@ -3,7 +3,11 @@ package model;
 import controller.ChessController;
 import model.pieces.Piece;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -21,7 +25,7 @@ public class AIPlayer {
                                          -1,-2, 2, 2, 2, 2,-2,-1,
                                           5,-1, 4, 4, 4, 4,-1, 5};
 
-    private static final int MAX_DEPTH = 4;
+    private static final int MAX_DEPTH = 0;
     private static final int[] SIGN = {1, -1}; //0 is black, 1 is white
 
     private Rules r;
@@ -39,21 +43,25 @@ public class AIPlayer {
      * @param player the player which is making the move.
      * @return the next move to make.
      */
-    public Position nextMove(Board b, Color player) {
-        Collection<Piece> pieces = r.getValidMoves(b, player);
+    public Entry<Piece, Position> nextMove(Board b, Color player) {
+        HashMap<Piece, ArrayList<Position>> pieces = r.getValidMoves(b, player);
         AtomicInteger value = new AtomicInteger(Integer.MAX_VALUE);
-        AtomicReference<Position> position = new AtomicReference<>();
-        pieces.parallelStream().forEach( piece -> {
-            Board c = new Board(b);
-            //r.flipDiscs(c, piece.getPosition(), player);
-            int color = (player == Color.WHITE) ? 0 : 1;
-            int tmp = negaMax(c, 0, color, Integer.MIN_VALUE, Integer.MAX_VALUE);
-            value.updateAndGet( v -> {
-                if (tmp < v) {
-                    position.set(piece.getPosition());
-                    return tmp;
-                }
-                return v;
+        AtomicReference<Entry<Piece, Position>> position = new AtomicReference<>();
+        pieces.entrySet().parallelStream().forEach( entry -> {
+            Piece piece = entry.getKey();
+            entry.getValue().forEach(moveTo -> {
+                Board c = new Board(b);
+                c.movePiece(piece.copy(), moveTo);
+                int color = (player == Color.WHITE) ? 0 : 1;
+                int tmp = negaMax(c, 0, color, Integer.MIN_VALUE, Integer.MAX_VALUE);
+                value.updateAndGet( v -> {
+                    if (tmp < v) {
+                        Entry<Piece, Position> test = Map.entry(piece, moveTo);
+                        position.set(test);
+                        return tmp;
+                    }
+                    return v;
+                });
             });
         });
         return position.get();
@@ -76,14 +84,17 @@ public class AIPlayer {
             return SIGN[color]*analysis(b);
         }
         int max = Integer.MIN_VALUE;
-        Collection<Piece>  legalMoves = r.getValidMoves(b, player);
-        for (Piece move: legalMoves) {
-            Board c = new Board(b);
-            //r.flipDiscs(c, move.getPosition(), player);
-            int x = - negaMax(c, depth+1, 1-color, -beta, -alpha);
-            if (x > max) max = x;
-            if (x > alpha) alpha = x;
-            if (alpha >= beta) return alpha;
+        HashMap<Piece, ArrayList<Position>> legalMoves = r.getValidMoves(b, player);
+        for (Entry<Piece, ArrayList<Position>> entry : legalMoves.entrySet()) {
+            Piece piece = entry.getKey();
+            for (Position move: entry.getValue()) {
+                Board c = new Board(b);
+                c.movePiece(piece.copy(), move);
+                int x = - negaMax(c, depth+1, 1-color, -beta, -alpha);
+                if (x > max) max = x;
+                if (x > alpha) alpha = x;
+                if (alpha >= beta) return alpha;
+            }
         }
         return max;
     }
@@ -95,8 +106,8 @@ public class AIPlayer {
      */
     private int analysis(Board board) {
         Collection<Piece> pieces = board.getBoard().values();
-        int value = pieces.parallelStream().filter(e -> e.getColor() != Color.EMPTY).mapToInt(this::checkScore).sum();
-        value = value + mobility(board);
+        int value = pieces.parallelStream().mapToInt(this::checkScore).sum();
+        //value = value + mobility(board);
         return value;
     }
 
