@@ -1,11 +1,13 @@
 package controller;
 
 import model.*;
+import model.Color;
 import model.pieces.Piece;
 import view.ChessView;
 import view.MenuBar;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -91,6 +93,7 @@ public class ChessController {
             }
             for (int col = 0; col < COLUMNS; col++) {
                 Position position = new Position(row, col);
+                board.getPiece(position).setComp(tiles[row][col]);
                 MouseAction mouseAction = new MouseAction(tiles[row][col]) {
                     @Override
                     public void mouseReleased(MouseEvent e) {
@@ -109,6 +112,7 @@ public class ChessController {
                         }
                     }
                 };
+
                 tiles[row][col].addMouseMotionListener(mouseAction);
                 tiles[row][col].addMouseListener(mouseAction);
             }
@@ -124,11 +128,11 @@ public class ChessController {
     public boolean makeMove(Position oldPosition, Position moveTo) {
         Piece piece = board.getPiece(oldPosition);
         if (rules.isLegalMove(board, piece, Color.WHITE, moveTo)) {
-            //System.out.println("test");
             board.movePiece(piece, moveTo);
             //rules.flipDiscs(board, piece.getPosition(), Color.BLACK);
             Map.Entry<Piece, Position> entry = ai.nextMove(board, Color.BLACK);
-           //board.movePiece(entry.getKey(), entry.getValue());
+            board.movePiece(entry.getKey(), entry.getValue());
+            entry.getKey().getComp().setLocation((entry.getValue()).getCol()*TILE_WIDTH, entry.getValue().getRow()*TILE_HEIGHT);
             //setTileImages();
             if (rules.isGameOver(board, Color.WHITE)) {
                 gameOver();
