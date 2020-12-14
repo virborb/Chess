@@ -97,10 +97,17 @@ public class Board {
         return board.get(position);
     }
 
-    public void movePiece(Piece piece, Position moveTo) {
+    /**
+     *
+     * @param piece
+     * @param moveTo
+     * @return the previous value associated with key,
+     *         or null if there was no mapping for key
+     */
+    public Piece movePiece(Piece piece, Position moveTo) {
         board.remove(piece.getPosition());
         piece.setPosition(moveTo);
-        board.put(moveTo, piece);
+        return board.put(moveTo, piece);
     }
 
     /**
