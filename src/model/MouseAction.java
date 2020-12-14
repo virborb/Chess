@@ -1,6 +1,7 @@
 package model;
 
 import controller.ChessController;
+import view.ImagePanel;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;
@@ -9,17 +10,17 @@ import java.awt.event.MouseMotionListener;
 
 public abstract class MouseAction implements MouseListener, MouseMotionListener {
 
-    private JComponent comp;
+    private ImagePanel comp;
     private volatile int screenX = 0;
     private volatile int screenY = 0;
     private volatile int myX = 0;
     private volatile int myY = 0;
 
-    public MouseAction(JComponent component) {
+    public MouseAction(ImagePanel component) {
         this.comp = component;
     }
 
-    public JComponent getComp() {
+    public ImagePanel getComp() {
         return comp;
     }
 
