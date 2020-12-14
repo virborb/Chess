@@ -39,16 +39,6 @@ public class Rules {
     }
 
     /**
-     * Checks if a player has any legal moves.
-     * @param b The board to check on.
-     * @param player The player to test for.
-     * @return True if player has moves otherwise returns false.
-     */
-    public boolean hasLegalMoves(Board b, Color player) {
-        return !getValidMoves(b, player).isEmpty();
-    }
-
-    /**
      * Checks if there is no moves left for ether player.
      * @param b The board to check.
      * @return True if game is over otherwise false.
