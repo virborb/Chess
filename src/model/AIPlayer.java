@@ -80,7 +80,7 @@ public class AIPlayer {
      */
     private int negaMax(Board b, int depth, int color, int alpha, int beta) {
         Color player = (color == 0) ? Color.BLACK : Color.WHITE;
-        if(!r.hasLegalMoves(b, player) || depth > MAX_DEPTH) {
+        if(depth > MAX_DEPTH || r.isGameOver(b, player)) {
             return SIGN[color]*analysis(b);
         }
         int max = Integer.MIN_VALUE;
