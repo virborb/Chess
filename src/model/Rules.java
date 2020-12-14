@@ -10,25 +10,15 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * Checks if a player has legal moves and also makes them.
+ * Checks if a player has legal moves or if game is over.
  */
 public class Rules {
-    private final Position[] directions;
 
     /**
-     * Constructs Rules and fills the array directions with
-     * the possible direction to check on the board.
+     * Constructs Rules.
      */
     public Rules() {
-        this.directions = new Position[8];
-        directions[0] = new Position(-1,1);
-        directions[1] = new Position(1,1);
-        directions[2] = new Position(-1,-1);
-        directions[3] = new Position(1,0);
-        directions[4] = new Position(-1,0);
-        directions[5] = new Position(0,-1);
-        directions[6] = new Position(0,1);
-        directions[7] = new Position(1,-1);
+
     }
 
     /**
