@@ -1,6 +1,7 @@
 package view;
 
 import controller.ChessController;
+import model.Position;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +12,8 @@ import java.awt.image.BufferedImage;
  */
 public class GameScreen extends JPanel {
     private BufferedImage bg;
-    private GridLayout gridLayout;
+    private GridBagLayout gridBagLayout;
+    private GridBagConstraints gbc;
     private ImagePanel[][] tiles;
 
     /**
@@ -19,27 +21,42 @@ public class GameScreen extends JPanel {
      * a background image.
      */
     public GameScreen() {
-        gridLayout = new GridLayout(8, 8);
-        gridLayout.setHgap(3);
-        gridLayout.setVgap(3);
-        this.setLayout(gridLayout);
+        gridBagLayout = new GridBagLayout();
+        gbc = new GridBagConstraints();
+        gbc.anchor = GridBagConstraints.FIRST_LINE_START;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        this.setLayout(gridBagLayout);
         tiles = new ImagePanel[8][8];
-        for (int i = 0; i < ChessController.ROWS; i++) {
-            for (int j = 0; j < ChessController.COLUMNS; j++) {
-                if(i >= 2 && i <= 5) {
-                    tiles[i][j] = null;
+        for (int row = 0; row < ChessController.ROWS; row++) {
+            for (int col = 0; col < ChessController.COLUMNS; col++) {
+                if(row >= 2 && row <= 5) {
+                    tiles[row][col] = null;
                     JPanel panel = new JPanel();
                     panel.setOpaque(false);
-                    this.add(panel);
+                    addObjects(panel, col, row, 1, 1);
                     continue;
                 }
-                tiles[i][j] = new ImagePanel(
+                tiles[row][col] = new ImagePanel(
                         ChessController.TILE_WIDTH, ChessController.TILE_HEIGHT);
-                this.add(tiles[i][j]);
+                addObjects(tiles[row][col], col, row, 1, 1);
             }
         }
         this.setSize(603,603);
         bg = new BufferedImage(ChessView.FRAME_WIDTH, ChessView.FRAME_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+    }
+
+    public void addObjects(Component component, int gridx, int gridy, int gridwidth, int gridheight){
+
+        gbc.gridx = gridx;
+        gbc.gridy = gridy;
+
+        gbc.gridwidth = gridwidth;
+        gbc.gridheight = gridheight;
+
+        gridBagLayout.setConstraints(component, gbc);
+        this.add(component);
     }
 
     /**
@@ -56,13 +73,31 @@ public class GameScreen extends JPanel {
      */
     public void setBackgroundImage(BufferedImage bg) {
         this.bg = bg;
+        repaint();
     }
 
     /**
      * @return An array with all the buttons
      */
-    public JPanel[][] getTiles() {
+    public ImagePanel[][] getTiles() {
         return tiles;
+    }
+
+    public void moveTile(ImagePanel panel, Position newPosition) {
+        this.remove(panel);
+        addObjects(panel, newPosition.getCol(), newPosition.getRow(), 1, 1);
+        revalidate();
+    }
+
+    public void removePanel(ImagePanel panel) {
+        for (ImagePanel[] panels : tiles) {
+            for (ImagePanel tile : panels) {
+                if(panel.equals(tile)) {
+                    this.remove(tile);
+                    this.revalidate();;
+                }
+            }
+        }
     }
 
     /**
