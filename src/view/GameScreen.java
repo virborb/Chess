@@ -87,6 +87,7 @@ public class GameScreen extends JPanel {
         this.remove(panel);
         addObjects(panel, newPosition.getCol(), newPosition.getRow(), 1, 1);
         revalidate();
+        repaint();
     }
 
     public void removePanel(ImagePanel panel) {
@@ -94,7 +95,8 @@ public class GameScreen extends JPanel {
             for (ImagePanel tile : panels) {
                 if(panel.equals(tile)) {
                     this.remove(tile);
-                    this.revalidate();;
+                    this.revalidate();
+                    repaint();
                 }
             }
         }
