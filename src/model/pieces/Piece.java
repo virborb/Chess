@@ -41,6 +41,10 @@ public abstract class Piece {
         return color;
     }
 
+    public int getValue() {
+        return value;
+    }
+
     public BufferedImage getImage() {
         return image;
     }
