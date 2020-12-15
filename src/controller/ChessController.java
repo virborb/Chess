@@ -127,7 +127,10 @@ public class ChessController {
                 v.getGameScreen().removePanel(previous.getComp());
             }
             v.getGameScreen().moveTile(piece.getComp(), moveTo);
+            long start = System.currentTimeMillis();
             Map.Entry<Piece, Position> entry = ai.nextMove(board, Color.BLACK);
+            long end = System.currentTimeMillis();
+            System.out.println("Ai time :" + (end-start) + "ms");
             previous = board.movePiece(entry.getKey(), entry.getValue());
             if( previous != null) {
                 v.getGameScreen().removePanel(previous.getComp());
