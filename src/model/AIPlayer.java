@@ -16,16 +16,16 @@ import java.util.concurrent.atomic.AtomicReference;
  * the board using an negaMax algorithm with alpha beta pruning.
  */
 public class AIPlayer {
-    private static final int[] POINTS = { 5,-1, 4, 4, 4, 4,-1, 5,
-                                         -1,-2, 2, 2, 2, 2,-2,-1,
-                                          4, 2, 3, 3, 3, 3, 2, 4,
-                                          4, 2, 3, 4, 4, 3, 2, 4,
-                                          4, 2, 3, 4, 4, 3, 2, 4,
-                                          4, 2, 3, 3, 3, 3, 2, 4,
-                                         -1,-2, 2, 2, 2, 2,-2,-1,
-                                          5,-1, 4, 4, 4, 4,-1, 5};
+    private static final int[] POINTS = { 1, 1, 1, 1, 1, 1, 1, 1,
+                                          1, 2, 2, 2, 2, 2, 2, 1,
+                                          1, 2, 3, 3, 3, 3, 2, 1,
+                                          1, 2, 3, 4, 4, 3, 2, 1,
+                                          1, 2, 3, 4, 4, 3, 2, 1,
+                                          1, 2, 3, 3, 3, 3, 2, 1,
+                                          1, 2, 2, 2, 2, 2, 2, 1,
+                                          1, 1, 1, 1, 1, 1, 1, 1};
 
-    private static final int MAX_DEPTH = 0;
+    private static final int MAX_DEPTH = 1;
     private static final int[] SIGN = {1, -1}; //0 is black, 1 is white
 
     private Rules r;
@@ -119,7 +119,7 @@ public class AIPlayer {
     private int checkScore(Piece piece) {
         int color = (piece.getColor() == Color.BLACK) ? 0 : 1;
         Position p = piece.getPosition();
-        int sum = POINTS[p.getRow()* ChessController.ROWS+p.getCol()];
+        int sum = POINTS[p.getRow()* ChessController.ROWS+p.getCol()] + piece.getValue();
         return SIGN[color]*sum;
     }
 
