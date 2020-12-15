@@ -5,24 +5,26 @@ import model.Color;
 import model.Position;
 import view.ImagePanel;
 
-import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public abstract class Piece {
     private Position position;
-    private Color color;
+    private final Color color;
+    private final int value;
     private BufferedImage image;
     private ImagePanel comp;
 
-    public Piece(Position position, Color color) {
+    public Piece(Position position, Color color, int value) {
         this.position = position;
         this.color = color;
+        this.value = value;
     }
 
     public Piece(Piece piece) {
         this.position = piece.position;
         this.color = piece.color;
+        this.value = piece.value;
         this.image = piece.image;
         this.comp = piece.comp;
     }

@@ -11,9 +11,10 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class Knight extends Piece {
+    private static final int VALUE = 3;
 
     public Knight(Position position, Color color) {
-        super(position, color);
+        super(position, color, VALUE);
         this.setImage();
     }
 

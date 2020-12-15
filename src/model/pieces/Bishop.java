@@ -11,9 +11,10 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class Bishop extends Piece {
+    private static final int VALUE = 3;
 
     public Bishop(Position position, Color color) {
-        super(position, color);
+        super(position, color, VALUE);
         this.setImage();
     }
 

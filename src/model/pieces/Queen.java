@@ -10,9 +10,10 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class Queen  extends Piece {
+    private static final int VALUE = 9;
 
     public Queen(Position position, Color color) {
-        super(position, color);
+        super(position, color, VALUE);
         this.setImage();
     }
 

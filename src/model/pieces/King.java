@@ -11,9 +11,10 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class King extends Piece {
+    private static final int VALUE = 10;
 
     public King(Position position, Color color) {
-        super(position, color);
+        super(position, color, VALUE);
         this.setImage();
     }
 
