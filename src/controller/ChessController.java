@@ -101,9 +101,7 @@ public class ChessController {
                         int col = newX/TILE_WIDTH;
                         Position oldPosition = new Position(this.getMyY()/TILE_HEIGHT, this.getMyX()/TILE_WIDTH);
                         Position moveTo = new Position(row, col);
-                        if (makeMove(oldPosition, moveTo)) {
-                            v.getGameScreen().moveTile(comp, moveTo);
-                        } else {
+                        if (!makeMove(oldPosition, moveTo)) {
                             comp.setLocation(this.getMyX(), this.getMyY());
                         }
                     }
@@ -128,6 +126,7 @@ public class ChessController {
             if( previous != null) {
                 v.getGameScreen().removePanel(previous.getComp());
             }
+            v.getGameScreen().moveTile(piece.getComp(), moveTo);
             Map.Entry<Piece, Position> entry = ai.nextMove(board, Color.BLACK);
             previous = board.movePiece(entry.getKey(), entry.getValue());
             if( previous != null) {

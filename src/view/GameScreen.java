@@ -91,10 +91,14 @@ public class GameScreen extends JPanel {
     }
 
     public void removePanel(ImagePanel panel) {
-        for (ImagePanel[] panels : tiles) {
-            for (ImagePanel tile : panels) {
-                if(panel.equals(tile)) {
-                    this.remove(tile);
+        for (int row = 0; row < ChessController.ROWS; row++) {
+            for (int col = 0; col < ChessController.COLUMNS; col++) {
+                if(panel.equals(tiles[row][col])) {
+                    this.remove(tiles[row][col]);
+                    tiles[row][col] = null;
+                    //JPanel newPanel = new JPanel();
+                    //newPanel.setOpaque(false);
+                    //addObjects(newPanel, col, row, 1, 1);
                     this.revalidate();
                     repaint();
                 }
