@@ -6,7 +6,6 @@ import model.pieces.Piece;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -73,11 +72,10 @@ public class Rules {
      * @param board The board to test on.
      * @param piece The piece to test
      * @param player The player to make the move.
-     * @param moveTo
+     * @param moveTo The position to move to.
      * @return True if move is legal otherwise false.
      */
     public boolean isLegalMove(Board board, Piece piece, Color player, Position moveTo) {
-        Position start = piece.getPosition();
         ArrayList<Position> positions = piece.getMoves(board);
         return piece.getColor() == player && positions.contains(moveTo);
     }
